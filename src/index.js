@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { DatabaseProvider } from './providers';
-import App from './App';
+import Pages from './pages';
 
 firebase.initializeApp({
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,7 +17,9 @@ firebase.initializeApp({
 
 ReactDOM.render(
     <React.StrictMode>
-        <DatabaseProvider>
-            <App/>
-        </DatabaseProvider>
+        <BrowserRouter>
+            <DatabaseProvider>
+                <Pages/>
+            </DatabaseProvider>
+        </BrowserRouter>
     </React.StrictMode>, document.getElementById('root'));
