@@ -11,10 +11,14 @@ export function DatabaseProvider({children}) {
     const [state, setState] = useState({
         ingredient: {},
         ingredients: [],
+        isAuthenticated: false,
+        isEditMode: false,
+        login: handleLogin,
         meal: {},
         meals: [],
         restaurant: {},
         restaurants: [],
+        setEditMode: handleSetEditMode,
         store: {},
         stores: [],
     });
@@ -48,6 +52,20 @@ export function DatabaseProvider({children}) {
         get('restaurant');
         get('store');
     }, []);
+
+    function handleLogin() {
+        setState(prevState => ({
+            ...prevState,
+            isAuthenticated: true,
+        }));
+    }
+
+    function handleSetEditMode(value) {
+        setState(prevState => ({
+            ...prevState,
+            isEditMode: value,
+        }));
+    }
 
     if (loaded < 4) {
         return <div className="flex h-screen items-center justify-center">
