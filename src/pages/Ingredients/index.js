@@ -1,21 +1,28 @@
 import { useDatabase } from '../../providers';
+import { Table } from '../../components';
 
 export default function Ingredients() {
 
     const db = useDatabase();
 
-    return <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {db.ingredients.map((meal, index) =>
-                <tr key={index}>
-                    <td>{meal.name}</td>
-                </tr>)}
-        </tbody>
-    </table>;
+    const columns = [
+        {
+            name: 'name',
+        },
+        {
+            name: 'carbs',
+        },
+        {
+            name: 'fat',
+        },
+        {
+            name: 'protein',
+        },
+        {
+            name: 'calories',
+        },
+    ];
+
+    return <Table columns={columns} rows={db.ingredients}/>;
 
 }
