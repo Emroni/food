@@ -1,15 +1,15 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Ingredients from './Meals';
-import Meals from './Meals';
-import Restaurants from './Meals';
-import Stores from './Meals';
 import { Nav } from '../components';
+import Ingredients from './Ingredients';
+import Meals from './Meals';
+import Restaurants from './Restaurants';
+import Stores from './Stores';
 
 export default function Pages() {
 
     return <>
         <Nav/>
-        <main>
+        <main className="container mx-auto p-3">
             <Switch>
                 <Route component={Ingredients} exact path="/ingredients"/>
                 <Route component={Meals} exact path="/meals"/>
