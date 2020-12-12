@@ -1,5 +1,11 @@
+import { useDatabase } from './providers';
+
 export default function App() {
 
-  return <div>App</div>;
+    const db = useDatabase();
+
+    console.log(db);
+
+    return <div>App</div>;
 
 }
