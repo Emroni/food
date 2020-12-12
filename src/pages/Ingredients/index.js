@@ -11,15 +11,19 @@ export default function Ingredients() {
         },
         {
             name: 'carbs',
+            align: 'right',
         },
         {
             name: 'fat',
+            align: 'right',
         },
         {
             name: 'protein',
+            align: 'right',
         },
         {
             name: 'calories',
+            align: 'right',
         },
     ];
 
