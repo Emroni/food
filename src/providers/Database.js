@@ -50,7 +50,9 @@ export function DatabaseProvider({children}) {
     }, []);
 
     if (loaded < 4) {
-        return <div>Loading</div>;
+        return <div className="flex h-screen items-center justify-center">
+            <div className="text-3xl">Loading</div>
+        </div>;
     }
 
     return <DatabaseContext.Provider value={state}>
