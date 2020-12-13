@@ -7,6 +7,7 @@ export default function Ingredients() {
 
     const columns = [
         {
+            autocomplete: 'nutritionix',
             name: 'name',
         },
         {

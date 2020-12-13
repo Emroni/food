@@ -32,7 +32,7 @@ export function Table({
             {rows.map((row, r) =>
                 <Row columns={columns} data={row} key={r}/>)}
         </tbody>
-        {auth.user && (
+        {auth.user && db.editing && (
             <tfoot>
                 <tr>
                     <td align="right" colSpan={columns.length}>

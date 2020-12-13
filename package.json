@@ -10,6 +10,7 @@
     "autoprefixer": "^9",
     "clsx": "^1.1.1",
     "firebase": "^8.2.0",
+    "nutritionix-api": "^1.0.4",
     "postcss": "^7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

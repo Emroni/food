@@ -59,13 +59,11 @@ export function DatabaseProvider({children}) {
             .add(data);
     }
 
-    function update(collection, doc, key, value) {
+    function update(collection, doc, data) {
         const db = firebase.firestore();
         db.collection(collection)
             .doc(doc)
-            .update({
-                [key]: value,
-            });
+            .update(data);
     }
 
     if (loaded < 4) {
