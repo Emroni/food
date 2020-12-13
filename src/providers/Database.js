@@ -25,6 +25,7 @@ export function DatabaseProvider({children}) {
         const get = (name) => {
             const collection = `${name}s`;
             db.collection(collection)
+                .orderBy('name')
                 .onSnapshot((col) => {
                     const hash = {};
                     const list = [];
