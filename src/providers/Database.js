@@ -7,19 +7,18 @@ export const useDatabase = () => useContext(DatabaseContext);
 
 export function DatabaseProvider({children}) {
 
-    const [loaded, setLoaded] = useState(0);
-    const [state, setState] = useState({
+    const [data, setData] = useState({
         ingredient: {},
         ingredients: [],
-        isEditing: false,
         meal: {},
         meals: [],
         restaurant: {},
         restaurants: [],
-        setEditing: handleSetEditing,
         store: {},
         stores: [],
     });
+    const [editing, setEditing] = useState(false);
+    const [loaded, setLoaded] = useState(0);
 
     useEffect(() => {
         const db = firebase.firestore();
@@ -35,7 +34,7 @@ export function DatabaseProvider({children}) {
                         list.push(data);
                     });
 
-                    setState(prevState => ({
+                    setData(prevState => ({
                         ...prevState,
                         [name]: hash,
                         [`${name}s`]: list,
@@ -51,20 +50,19 @@ export function DatabaseProvider({children}) {
         get('store');
     }, []);
 
-    function handleSetEditing(value) {
-        setState(prevState => ({
-            ...prevState,
-            isEditing: value,
-        }));
-    }
-
     if (loaded < 4) {
         return <div className="flex h-screen items-center justify-center">
             <div className="text-3xl">Loading</div>
         </div>;
     }
 
-    return <DatabaseContext.Provider value={state}>
+    const value = {
+        ...data,
+        editing,
+        setEditing,
+    };
+
+    return <DatabaseContext.Provider value={value}>
         {children}
     </DatabaseContext.Provider>;
 
