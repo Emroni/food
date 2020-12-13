@@ -26,6 +26,8 @@ export function Table({
                     <th align={column.align || 'left'} className="capitalize px-2 py-1" key={index}>
                         {column.name}
                     </th>)}
+                {db.editing && (
+                    <th/>)}
             </tr>
         </thead>
         <tbody>
@@ -35,8 +37,8 @@ export function Table({
         {auth.user && db.editing && (
             <tfoot>
                 <tr>
-                    <td align="right" colSpan={columns.length}>
-                        <button type="button" onClick={handleAdd}>
+                    <td align="right" colSpan={columns.length + 1}>
+                        <button className="p-1 text-gray-400 hover:text-blue-400" type="button" onClick={handleAdd}>
                             <Icon name="plus"/>
                         </button>
                     </td>
