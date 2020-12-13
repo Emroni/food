@@ -11,14 +11,12 @@ export function DatabaseProvider({children}) {
     const [state, setState] = useState({
         ingredient: {},
         ingredients: [],
-        isAuthenticated: false,
-        isEditMode: false,
-        login: handleLogin,
+        isEditing: false,
         meal: {},
         meals: [],
         restaurant: {},
         restaurants: [],
-        setEditMode: handleSetEditMode,
+        setEditing: handleSetEditing,
         store: {},
         stores: [],
     });
@@ -53,17 +51,10 @@ export function DatabaseProvider({children}) {
         get('store');
     }, []);
 
-    function handleLogin() {
+    function handleSetEditing(value) {
         setState(prevState => ({
             ...prevState,
-            isAuthenticated: true,
-        }));
-    }
-
-    function handleSetEditMode(value) {
-        setState(prevState => ({
-            ...prevState,
-            isEditMode: value,
+            isEditing: value,
         }));
     }
 

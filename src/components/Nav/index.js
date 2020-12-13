@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { useDatabase } from '../../providers';
+import { useAuth } from '../../providers';
 import EditToggle from './EditToggle';
 import Login from './Login';
 
 export function Nav() {
 
-    const db = useDatabase();
+    const auth = useAuth();
 
     const nav = {
         meals: 'Meals',
@@ -24,7 +24,7 @@ export function Nav() {
                         </NavLink>)}
             </div>
             <div>
-                {db.isAuthenticated ?
+                {auth.user ?
                     <EditToggle/> :
                     <Login/>}
             </div>

@@ -7,29 +7,39 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({children}) {
 
-    const [state, setState] = useState({
-        isAuthenticated: false,
-        login: handleLogin,
-    });
+    const [authenticating, setAuthenticating] = useState(false);
+    const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const auth = firebase.auth();
-        auth.onAuthStateChanged(user => {
-            setState(prevState => ({
-                ...prevState,
-                isAuthenticated: true,
-                user,
-            }));
-        });
+        auth.onAuthStateChanged(setUser);
     }, []);
 
-    function handleLogin() {
+    function login(email, password) {
+        setAuthenticating(true);
+        setError(null);
+
         const auth = firebase.auth();
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
+        auth.signInWithEmailAndPassword(email, password)
+            .then(credentials => {
+                setAuthenticating(false);
+                setUser(credentials.user);
+            })
+            .catch(e => {
+                setAuthenticating(false);
+                setError(e.message);
+            });
     }
 
-    return <AuthContext.Provider value={state}>
+    const value = {
+        authenticating,
+        error,
+        login,
+        user,
+    };
+
+    return <AuthContext.Provider value={value}>
         {children}
     </AuthContext.Provider>;
 
