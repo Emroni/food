@@ -1,11 +1,8 @@
 module.exports = {
-    future: {
-        removeDeprecatedGapUtilities: true,
-    },
     plugins: [],
     purge: [
-        './components/**/*.{js,ts,jsx,tsx}',
-        './pages/**/*.{js,ts,jsx,tsx}',
+        './public/index.html',
+        './src/**/*.{js,jsx,ts,tsx}'
     ],
     variants: {
         backgroundColor: [
