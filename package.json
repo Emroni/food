@@ -8,6 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "autoprefixer": "^9",
+    "clsx": "^1.1.1",
     "firebase": "^8.2.0",
     "postcss": "^7",
     "react": "^17.0.1",
