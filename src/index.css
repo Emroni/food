@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-button:focus, input:focus {
+a:focus, button:focus, input:focus {
     outline: none;
 }
