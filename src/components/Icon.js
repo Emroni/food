@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPlus, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
     'edit': faEdit,
+    'plus': faPlus,
     'user-circle': faUserCircle,
 };
 

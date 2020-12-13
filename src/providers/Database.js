@@ -53,6 +53,12 @@ export function DatabaseProvider({children}) {
         get('store');
     }, []);
 
+    function add(collection, data) {
+        const db = firebase.firestore();
+        db.collection(collection)
+            .add(data);
+    }
+
     function update(collection, doc, key, value) {
         const db = firebase.firestore();
         db.collection(collection)
@@ -70,6 +76,7 @@ export function DatabaseProvider({children}) {
 
     const value = {
         ...data,
+        add,
         editing,
         setEditing,
         update,

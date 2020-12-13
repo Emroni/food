@@ -31,6 +31,6 @@ export default function Ingredients() {
         },
     ];
 
-    return <Table columns={columns} rows={db.ingredients}/>;
+    return <Table collection="ingredients" columns={columns} rows={db.ingredients}/>;
 
 }

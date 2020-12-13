@@ -1,9 +1,23 @@
 import { Row } from './Row';
+import { useAuth, useDatabase } from '../../providers';
+import { Icon } from '../';
 
 export function Table({
+                          collection,
                           columns,
                           rows,
                       }) {
+
+    const auth = useAuth();
+    const db = useDatabase();
+
+    function handleAdd() {
+        const data = {};
+        columns.forEach(column => {
+            data[column.name] = column.type === 'number' ? 0 : '';
+        });
+        db.add(collection, data)
+    }
 
     return <table className="w-full">
         <thead>
@@ -18,6 +32,16 @@ export function Table({
             {rows.map((row, r) =>
                 <Row columns={columns} data={row} key={r}/>)}
         </tbody>
+        {auth.user && (
+            <tfoot>
+                <tr>
+                    <td align="right" colSpan={columns.length}>
+                        <button type="button" onClick={handleAdd}>
+                            <Icon name="plus"/>
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>)}
     </table>;
 
 }

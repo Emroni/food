@@ -11,6 +11,6 @@ export default function Stores() {
         },
     ];
 
-    return <Table columns={columns} rows={db.stores}/>;
+    return <Table collection="stores" columns={columns} rows={db.stores}/>;
 
 }

@@ -6,9 +6,12 @@ export function Row({
                     }) {
 
     const db = useDatabase();
-    
+
     function handleUpdate(e) {
-        let {name, value} = e.currentTarget;
+        let {
+            name,
+            value,
+        } = e.currentTarget;
         if (!isNaN(value)) {
             value = parseFloat(value);
         }
