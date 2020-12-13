@@ -1,3 +1,5 @@
+import { Row } from './Row';
+
 export function Table({
                           columns,
                           rows,
@@ -14,12 +16,7 @@ export function Table({
         </thead>
         <tbody>
             {rows.map((row, r) =>
-                <tr className="even:bg-gray-100 hover:bg-gray-200" key={r}>
-                    {columns.map((column, c) =>
-                        <td align={column.align || 'left'} className="px-2 py-1" key={c}>
-                            {row[column.name]}
-                        </td>)}
-                </tr>)}
+                <Row columns={columns} data={row} key={r}/>)}
         </tbody>
     </table>;
 

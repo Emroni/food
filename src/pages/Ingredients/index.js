@@ -12,18 +12,22 @@ export default function Ingredients() {
         {
             name: 'carbs',
             align: 'right',
+            type: 'number',
         },
         {
             name: 'fat',
             align: 'right',
+            type: 'number',
         },
         {
             name: 'protein',
             align: 'right',
+            type: 'number',
         },
         {
             name: 'calories',
             align: 'right',
+            type: 'number',
         },
     ];
 
