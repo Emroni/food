@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useDatabase } from '../../providers';
 import { Icon } from '../';
 
@@ -10,12 +9,8 @@ export default function EditToggle() {
         db.setEditing(!db.editing);
     }
 
-    const buttonClasses = clsx('leading-none p-3', {
-        'text-gray-500': !db.editing,
-    });
-
-    return <button className={buttonClasses} title="Edit" type="button" onClick={handleToggle}>
-        <Icon name="edit"/>
+    return <button className="leading-none p-3" title={db.editing ? 'Done' : 'Edit'} type="button" onClick={handleToggle}>
+        <Icon name={db.editing ? 'check' : 'edit'}/>
     </button>;
 
 }

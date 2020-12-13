@@ -1,5 +1,5 @@
 import { Row } from './Row';
-import { useAuth, useDatabase } from '../../providers';
+import { useDatabase } from '../../providers';
 import { Icon } from '../';
 
 export function Table({
@@ -8,7 +8,6 @@ export function Table({
                           rows,
                       }) {
 
-    const auth = useAuth();
     const db = useDatabase();
 
     function handleAdd() {
@@ -27,23 +26,17 @@ export function Table({
                         {column.name}
                     </th>)}
                 {db.editing && (
-                    <th/>)}
+                    <td align="right" colSpan={columns.length + 1}>
+                        <button className="p-1 text-gray-400 hover:text-blue-400" type="button" onClick={handleAdd}>
+                            <Icon name="plus"/>
+                        </button>
+                    </td>)}
             </tr>
         </thead>
         <tbody>
             {rows.map((row, r) =>
                 <Row columns={columns} data={row} key={r}/>)}
         </tbody>
-        {auth.user && db.editing && (
-            <tfoot>
-                <tr>
-                    <td align="right" colSpan={columns.length + 1}>
-                        <button className="p-1 text-gray-400 hover:text-blue-400" type="button" onClick={handleAdd}>
-                            <Icon name="plus"/>
-                        </button>
-                    </td>
-                </tr>
-            </tfoot>)}
     </table>;
 
 }

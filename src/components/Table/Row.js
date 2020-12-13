@@ -32,7 +32,7 @@ export function Row({
                     <Input value={data[column.name]} {...column} onSuggestion={handleSuggestion} onUpdate={handleUpdate}/> : data[column.name]}
             </td>)}
         {db.editing && (
-            <td>
+            <td align="right">
                 <button className="p-1 text-gray-400 hover:text-red-400" type="button" onClick={handleDelete}>
                     <Icon name="times"/>
                 </button>
