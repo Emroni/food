@@ -11,6 +11,6 @@ export default function Restaurants() {
         },
     ];
 
-    return <Table columns={columns} rows={db.restaurants}/>;
+    return <Table collection="restaurants" columns={columns} rows={db.restaurants}/>;
 
 }

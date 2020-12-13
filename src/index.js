@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/firestore';
-import { DatabaseProvider } from './providers';
+import { AuthProvider, DatabaseProvider, NutritionixProvider } from './providers';
 import Pages from './pages';
 import './index.css';
 
@@ -19,8 +20,12 @@ firebase.initializeApp({
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <DatabaseProvider>
-                <Pages/>
-            </DatabaseProvider>
+            <AuthProvider>
+                <DatabaseProvider>
+                    <NutritionixProvider>
+                        <Pages/>
+                    </NutritionixProvider>
+                </DatabaseProvider>
+            </AuthProvider>
         </BrowserRouter>
     </React.StrictMode>, document.getElementById('root'));

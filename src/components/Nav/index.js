@@ -1,30 +1,47 @@
 import { NavLink } from 'react-router-dom';
-import { useDatabase } from '../../providers';
+import { useAuth } from '../../providers';
 import EditToggle from './EditToggle';
 import Login from './Login';
+import { Icon } from '../Icon';
 
 export function Nav() {
 
-    const db = useDatabase();
+    const auth = useAuth();
 
-    const nav = {
-        meals: 'Meals',
-        ingredients: 'Ingredients',
-        restaurants: 'Restaurants',
-        stores: 'Stores',
-    };
+    const nav = [
+        {
+            icon: 'utensils',
+            name: 'Meals',
+            path: '/meals',
+        },
+        {
+            icon: 'carrot',
+            name: 'Ingredients',
+            path: '/ingredients',
+        },
+        {
+            icon: 'store',
+            name: 'Restaurants',
+            path: '/restaurants',
+        },
+        {
+            icon: 'store-alt',
+            name: 'Stores',
+            path: '/stores',
+        },
+    ];
 
     return <nav className="bg-gray-900 leading-none text-white ">
         <div className="container flex mx-auto justify-between">
             <div className="flex">
-                {Object.entries(nav)
-                    .map(([key, name], index) =>
-                        <NavLink activeClassName="bg-opacity-10 bg-white" className="block p-3 hover:text-opacity-70" key={index} to={`${key}`}>
-                            {name}
-                        </NavLink>)}
+                {nav.map((item, index) =>
+                    <NavLink activeClassName="bg-opacity-10 bg-white" className="block p-3 hover:text-gray-300" key={index} to={item.path}>
+                        <Icon name={item.icon}/>
+                        <span className="hidden ml-2 sm:inline">{item.name}</span>
+                    </NavLink>)}
             </div>
             <div>
-                {db.isAuthenticated ?
+                {auth.user ?
                     <EditToggle/> :
                     <Login/>}
             </div>

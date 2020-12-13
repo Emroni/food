@@ -7,37 +7,38 @@ export const useDatabase = () => useContext(DatabaseContext);
 
 export function DatabaseProvider({children}) {
 
-    const [loaded, setLoaded] = useState(0);
-    const [state, setState] = useState({
+    const [data, setData] = useState({
         ingredient: {},
         ingredients: [],
-        isAuthenticated: false,
-        isEditMode: false,
-        login: handleLogin,
         meal: {},
         meals: [],
         restaurant: {},
         restaurants: [],
-        setEditMode: handleSetEditMode,
         store: {},
         stores: [],
     });
+    const [editing, setEditing] = useState(false);
+    const [loaded, setLoaded] = useState(0);
 
     useEffect(() => {
         const db = firebase.firestore();
         const get = (name) => {
-            db.collection(`${name}s`)
+            const collection = `${name}s`;
+            db.collection(collection)
+                .orderBy('name')
                 .onSnapshot((col) => {
                     const hash = {};
                     const list = [];
 
                     col.forEach((doc) => {
                         const data = doc.data();
+                        data.id = doc.id;
+                        data.collection = collection;
                         hash[doc.id] = data;
                         list.push(data);
                     });
 
-                    setState(prevState => ({
+                    setData(prevState => ({
                         ...prevState,
                         [name]: hash,
                         [`${name}s`]: list,
@@ -53,18 +54,24 @@ export function DatabaseProvider({children}) {
         get('store');
     }, []);
 
-    function handleLogin() {
-        setState(prevState => ({
-            ...prevState,
-            isAuthenticated: true,
-        }));
+    function add(collection, data) {
+        const db = firebase.firestore();
+        db.collection(collection)
+            .add(data);
     }
 
-    function handleSetEditMode(value) {
-        setState(prevState => ({
-            ...prevState,
-            isEditMode: value,
-        }));
+    function remove(collection, doc) {
+        const db = firebase.firestore();
+        db.collection(collection)
+            .doc(doc)
+            .delete();
+    }
+
+    function update(collection, doc, data) {
+        const db = firebase.firestore();
+        db.collection(collection)
+            .doc(doc)
+            .update(data);
     }
 
     if (loaded < 4) {
@@ -73,7 +80,16 @@ export function DatabaseProvider({children}) {
         </div>;
     }
 
-    return <DatabaseContext.Provider value={state}>
+    const value = {
+        ...data,
+        add,
+        editing,
+        remove,
+        setEditing,
+        update,
+    };
+
+    return <DatabaseContext.Provider value={value}>
         {children}
     </DatabaseContext.Provider>;
 

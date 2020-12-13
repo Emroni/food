@@ -6,11 +6,11 @@ export default function EditToggle() {
     const db = useDatabase();
 
     function handleToggle() {
-        db.setEditMode(!db.isEditMode);
+        db.setEditing(!db.editing);
     }
 
-    return <button className="leading-none p-3" type="button" onClick={handleToggle}>
-        <Icon name={db.isEditMode ? 'times' : 'edit'}/>
+    return <button className="leading-none p-3" title={db.editing ? 'Done' : 'Edit'} type="button" onClick={handleToggle}>
+        <Icon name={db.editing ? 'check' : 'edit'}/>
     </button>;
 
 }
