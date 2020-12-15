@@ -17,7 +17,6 @@ export function DatabaseProvider({children}) {
         store: {},
         stores: [],
     });
-    const [editing, setEditing] = useState(false);
     const [loaded, setLoaded] = useState(0);
 
     useEffect(() => {
@@ -83,9 +82,7 @@ export function DatabaseProvider({children}) {
     const value = {
         ...data,
         add,
-        editing,
         remove,
-        setEditing,
         update,
     };
 
