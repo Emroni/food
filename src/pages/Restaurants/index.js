@@ -1,16 +1,10 @@
-import { useDatabase } from '../../providers';
-import { Table } from '../../components';
+import { Route, Switch } from 'react-router-dom';
+import List from './List';
 
 export default function Restaurants() {
 
-    const db = useDatabase();
-
-    const columns = [
-        {
-            name: 'name',
-        },
-    ];
-
-    return <Table collection="restaurants" columns={columns} rows={db.restaurants}/>;
+    return <Switch>
+        <Route component={List} exact path="/restaurants"/>
+    </Switch>
 
 }
