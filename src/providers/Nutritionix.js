@@ -26,7 +26,7 @@ export function NutritionixProvider({children}) {
             };
         });
     }
-    
+
     const value = {
         loading,
         search,

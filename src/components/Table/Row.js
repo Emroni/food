@@ -1,7 +1,7 @@
-export function Row({
-                        columns,
-                        data,
-                    }) {
+export default function Row({
+                                columns,
+                                data,
+                            }) {
 
     return <tr className="bg-gray-50 even:bg-gray-100 hover:bg-gray-200">
         {columns.map((column, index) =>

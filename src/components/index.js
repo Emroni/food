@@ -1,3 +1,7 @@
-export { Icon } from './Icon';
-export { Nav } from './Nav';
-export { Table } from './Table';
+import Icon from './Icon';
+import Nav from './Nav';
+import Table from './Table';
+
+export {
+    Icon, Nav, Table,
+}

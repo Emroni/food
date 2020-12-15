@@ -1,9 +1,9 @@
-import { Row } from './Row';
+import Row from './Row';
 
-export function Table({
-                          columns,
-                          rows,
-                      }) {
+export default function Table({
+                                  columns,
+                                  rows,
+                              }) {
 
     return <table className="w-full">
         <thead>
