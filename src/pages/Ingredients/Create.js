@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Form, TextField } from '../../components';
+import { Form, NutritionixField, TextField } from '../../components';
 
 export default function Create() {
 
@@ -21,8 +21,7 @@ export default function Create() {
     }
 
     return <Form button="plus" initialValues={initialValues} onSubmit={handleSubmit}>
-        {/*autocomplete: 'nutritionix',*/}
-        <TextField name="name"/>
+        <NutritionixField name="name"/>
         <TextField name="carbs" type="number"/>
         <TextField name="fat" type="number"/>
         <TextField name="protein" type="number"/>

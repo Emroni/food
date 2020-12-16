@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { AuthProvider, DatabaseProvider, NutritionixProvider } from './providers';
+import { AuthProvider, DatabaseProvider } from './providers';
 import Pages from './pages';
 import './index.css';
 
@@ -22,9 +22,7 @@ ReactDOM.render(
         <BrowserRouter>
             <AuthProvider>
                 <DatabaseProvider>
-                    <NutritionixProvider>
-                        <Pages/>
-                    </NutritionixProvider>
+                    <Pages/>
                 </DatabaseProvider>
             </AuthProvider>
         </BrowserRouter>

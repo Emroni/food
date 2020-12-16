@@ -1,6 +1,6 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Form, TextField } from '../../components';
+import { Form, NutritionixField, TextField } from '../../components';
 
 export default function Update() {
 
@@ -14,8 +14,7 @@ export default function Update() {
     }
 
     return <Form button="check" initialValues={db.ingredient[params.id]} onSubmit={handleSubmit}>
-        {/*autocomplete: 'nutritionix',*/}
-        <TextField name="name"/>
+        <NutritionixField name="name"/>
         <TextField name="carbs" type="number"/>
         <TextField name="fat" type="number"/>
         <TextField name="protein" type="number"/>
