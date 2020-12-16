@@ -8,9 +8,13 @@ export default function TextField({
 
     const [field] = useField(name);
 
-    return <div className="flex m-1 even:bg-gray-50">
-        <div className="p-1 w-1/4">{label || name}</div>
-        <input className="pl-1 w-3/4" name={name} {...field} {...props}/>
-    </div>;
+    return <tr className="hover:bg-gray-50">
+        <td className="p-1">
+            {label || name}
+        </td>
+        <td className="p-1">
+            <input className="pl-1 w-full" name={name} {...field} {...props}/>
+        </td>
+    </tr>;
 
 }

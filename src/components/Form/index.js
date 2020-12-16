@@ -10,7 +10,11 @@ export default function Form({
 
     return <Formik initialValues={initialValues} onSubmit={onSubmit}>
         <FormikForm className="bg-gray-100 p-2">
-            {children}
+            <table className="w-full">
+                <tbody>
+                    {children}
+                </tbody>
+            </table>
             <div className="text-right">
                 <Button icon={button} type="submit"/>
             </div>
