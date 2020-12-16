@@ -1,11 +1,6 @@
-import { useHistory } from 'react-router-dom';
-import { useDatabase } from '../../providers';
 import { Form, NutritionixField, TextField } from '../../components';
 
 export default function Create() {
-
-    const db = useDatabase();
-    const history = useHistory();
 
     const initialValues = {
         name: '',
@@ -13,14 +8,9 @@ export default function Create() {
         fat: 0,
         protein: 0,
         calories: 0,
-    }
+    };
 
-    function handleSubmit(values) {
-        db.add('ingredients', values);
-        history.push('/ingredients');
-    }
-
-    return <Form button="plus" initialValues={initialValues} onSubmit={handleSubmit}>
+    return <Form collection="ingredients" initialValues={initialValues}>
         <NutritionixField name="name"/>
         <TextField name="carbs" type="number"/>
         <TextField name="fat" type="number"/>

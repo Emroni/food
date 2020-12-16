@@ -1,19 +1,15 @@
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
 import { Form, NutritionixField, TextField } from '../../components';
 
 export default function Update() {
 
     const db = useDatabase();
-    const history = useHistory();
     const params = useParams();
 
-    function handleSubmit(values) {
-        db.update('ingredients', params.id, values);
-        history.push('/ingredients');
-    }
+    const doc = db.ingredients.find(doc => doc.id === params.id);
 
-    return <Form button="check" initialValues={db.ingredient[params.id]} onSubmit={handleSubmit}>
+    return <Form collection="ingredients" doc={doc}>
         <NutritionixField name="name"/>
         <TextField name="carbs" type="number"/>
         <TextField name="fat" type="number"/>

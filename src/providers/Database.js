@@ -8,49 +8,40 @@ export const useDatabase = () => useContext(DatabaseContext);
 export function DatabaseProvider({children}) {
 
     const [data, setData] = useState({
-        ingredient: {},
         ingredients: [],
-        meal: {},
         meals: [],
-        restaurant: {},
         restaurants: [],
-        store: {},
         stores: [],
     });
     const [loaded, setLoaded] = useState(0);
 
     useEffect(() => {
         const db = firebase.firestore();
-        const get = (name) => {
-            const collection = `${name}s`;
+        const get = (collection) => {
             db.collection(collection)
                 .orderBy('name')
                 .onSnapshot((col) => {
-                    const hash = {};
                     const list = [];
 
                     col.forEach((doc) => {
                         const data = doc.data();
                         data.id = doc.id;
-                        data.collection = collection;
-                        hash[doc.id] = data;
                         list.push(data);
                     });
 
                     setData(prevState => ({
                         ...prevState,
-                        [name]: hash,
-                        [`${name}s`]: list,
+                        [collection]: list,
                     }));
 
                     setLoaded(prevState => prevState + 1);
                 });
         }
 
-        get('ingredient');
-        get('meal');
-        get('restaurant');
-        get('store');
+        get('ingredients');
+        get('meals');
+        get('restaurants');
+        get('stores');
     }, []);
 
     function add(collection, data) {
