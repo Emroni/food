@@ -1,6 +1,7 @@
 import Row from './Row';
 
 export default function Table({
+                                  collection,
                                   columns,
                                   rows,
                               }) {
@@ -16,7 +17,7 @@ export default function Table({
         </thead>
         <tbody>
             {rows.map((row, index) =>
-                <Row columns={columns} data={row} key={index}/>)}
+                <Row collection={collection} columns={columns} data={row} key={index}/>)}
         </tbody>
     </table>;
 

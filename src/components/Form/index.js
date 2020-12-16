@@ -15,6 +15,6 @@ export default function Form({
                 <Button icon={button} type="submit"/>
             </div>
         </FormikForm>
-    </Formik>
+    </Formik>;
 
 }
