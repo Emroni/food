@@ -1,5 +1,5 @@
 import { useDatabase } from '../../providers';
-import { Table } from '../../components';
+import { Button, Table } from '../../components';
 
 export default function List() {
 
@@ -7,31 +7,31 @@ export default function List() {
 
     const columns = [
         {
-            autocomplete: 'nutritionix',
             name: 'name',
         },
         {
             name: 'carbs',
             align: 'right',
-            type: 'number',
         },
         {
             name: 'fat',
             align: 'right',
-            type: 'number',
         },
         {
             name: 'protein',
             align: 'right',
-            type: 'number',
         },
         {
             name: 'calories',
             align: 'right',
-            type: 'number',
         },
     ];
 
-    return <Table collection="ingredients" columns={columns} rows={db.ingredients}/>;
+    return <>
+        <div className="flex justify-end mb-2">
+            <Button icon="plus" to="/ingredients/create"/>
+        </div>
+        <Table collection="ingredients" columns={columns} rows={db.ingredients}/>
+    </>;
 
 }

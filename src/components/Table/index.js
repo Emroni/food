@@ -15,8 +15,8 @@ export default function Table({
             </tr>
         </thead>
         <tbody>
-            {rows.map((row, r) =>
-                <Row columns={columns} data={row} key={r}/>)}
+            {rows.map((row, index) =>
+                <Row columns={columns} data={row} key={index}/>)}
         </tbody>
     </table>;
 
