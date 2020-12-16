@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../providers';
-import EditToggle from './EditToggle';
+import { Icon } from '../';
 import Login from './Login';
-import { Icon } from '../Icon';
 
-export function Nav() {
+export default function Nav() {
 
     const auth = useAuth();
 
@@ -41,9 +40,8 @@ export function Nav() {
                     </NavLink>)}
             </div>
             <div>
-                {auth.user ?
-                    <EditToggle/> :
-                    <Login/>}
+                {!auth.user && (
+                    <Login/>)}
             </div>
         </div>
     </nav>;

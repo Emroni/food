@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNutritionix } from '../../providers';
-import { Icon } from '../Icon';
+import { Icon } from '../';
 
-export function Input({
-                          autocomplete,
-                          name,
-                          type = 'text',
-                          value,
-                          onSuggestion,
-                          onUpdate,
-                          ...props
-                      }) {
+export default function Input({
+                                  autocomplete,
+                                  name,
+                                  type = 'text',
+                                  value,
+                                  onSuggestion,
+                                  onUpdate,
+                                  ...props
+                              }) {
 
     const [loading, setLoading] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
