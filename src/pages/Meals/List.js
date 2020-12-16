@@ -1,5 +1,5 @@
 import { useDatabase } from '../../providers';
-import { Table } from '../../components';
+import { Button, Table } from '../../components';
 
 export default function List() {
 
@@ -11,6 +11,11 @@ export default function List() {
         },
     ];
 
-    return <Table collection="meals" columns={columns} rows={db.meals}/>;
+    return <>
+        <div className="flex justify-end mb-2">
+            <Button icon="plus" to="/meals/create"/>
+        </div>
+        <Table collection="meals" columns={columns} rows={db.meals}/>
+    </>;
 
 }
