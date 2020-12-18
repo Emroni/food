@@ -1,3 +1,4 @@
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { Nav } from '../components';
 import Ingredients from './Ingredients';
 import Meals from './Meals';
@@ -9,10 +10,13 @@ export default function Pages() {
     return <>
         <Nav/>
         <main className="container mx-auto p-3 sm:py-4 md:py-5 lg:py-6">
-            <Ingredients/>
-            <Meals/>
-            <Restaurants/>
-            <Stores/>
+            <Switch>
+                <Route component={Ingredients} path="/ingredients"/>
+                <Route component={Meals} path="/meals"/>
+                <Route component={Restaurants} path="/restaurants"/>
+                <Route component={Stores} path="/stores"/>
+                <Redirect to="/meals"/>
+            </Switch>
         </main>
     </>;
 
