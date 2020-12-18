@@ -1,8 +1,10 @@
 import { useField } from 'formik';
+import { Button } from '../index';
 
 export default function TextField({
                                       name,
                                       label,
+                                      type,
                                       ...props
                                   }) {
 
@@ -13,7 +15,11 @@ export default function TextField({
             {label || name}
         </td>
         <td className="p-1">
-            <input className="pl-1 w-full" name={name} {...field} {...props}/>
+            <div className="flex">
+                <input className="pl-1 w-full" name={name} type={type} {...field} {...props}/>
+                {type === 'url' && (
+                    <Button className="ml-2" disabled={!field.value} href={field.value} icon="external-link-alt"/>)}
+            </div>
         </td>
     </tr>;
 

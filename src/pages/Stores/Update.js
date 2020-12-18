@@ -11,6 +11,7 @@ export default function Update() {
 
     return <Form collection="stores" doc={doc}>
         <TextField name="name"/>
+        <TextField name="website" type="url"/>
     </Form>;
 
 }

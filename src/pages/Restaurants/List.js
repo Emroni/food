@@ -9,6 +9,10 @@ export default function List() {
         {
             name: 'name',
         },
+        {
+            name: 'website',
+            type: 'url',
+        },
     ];
 
     return <>
