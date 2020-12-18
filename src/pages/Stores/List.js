@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDatabase } from '../../providers';
 import { Button, Search, Table } from '../../components';
 
 export default function List() {
 
     const db = useDatabase();
-    const [rows, setRows] = useState(db.restaurants);
+    const [rows, setRows] = useState([]);
 
     const columns = [
         {
@@ -16,6 +16,10 @@ export default function List() {
             type: 'url',
         },
     ];
+
+    useEffect(() => {
+        setRows(db.stores);
+    }, [db.stores]);
 
     return <>
         <div className="flex justify-between mb-2">
