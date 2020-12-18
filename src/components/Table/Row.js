@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom';
+import Cell from './Cell';
 
 export default function Row({
                                 collection,
@@ -14,9 +15,9 @@ export default function Row({
 
     return <tr className="bg-gray-50 even:bg-gray-100 hover:bg-gray-200" onClick={handleClick}>
         {columns.map((column, index) =>
-            <td align={column.align || 'left'} className="px-2 py-1" key={index}>
+            <Cell column={column} key={index}>
                 {data[column.name]}
-            </td>)}
+            </Cell>)}
     </tr>;
 
 }

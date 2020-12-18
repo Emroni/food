@@ -9,6 +9,17 @@ export default function List() {
         {
             name: 'name',
         },
+        {
+            collection: 'restaurants',
+            name: 'restaurant',
+        },
+        {
+            collection: 'stores',
+            name: 'store',
+        },
+        {
+            name: 'price',
+        },
     ];
 
     return <>

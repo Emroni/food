@@ -10,6 +10,14 @@ export default function List() {
             name: 'name',
         },
         {
+            collection: 'stores',
+            name: 'store',
+        },
+        {
+            name: 'price',
+            align: 'right',
+        },
+        {
             name: 'carbs',
             align: 'right',
         },

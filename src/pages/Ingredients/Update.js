@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Form, NutritionixField, TextField } from '../../components';
+import { Form, NutritionixField, Select, TextField } from '../../components';
 
 export default function Update() {
 
@@ -15,6 +15,9 @@ export default function Update() {
         <TextField name="fat" type="number"/>
         <TextField name="protein" type="number"/>
         <TextField name="calories" type="number"/>
+        <Select collection="stores" name="store"/>
+        <TextField name="size" type="number"/>
+        <TextField name="price" type="number"/>
     </Form>;
 
 }

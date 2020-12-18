@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Form, TextField } from '../../components';
+import { Form, Select, TextField } from '../../components';
 
 export default function Update() {
 
@@ -11,6 +11,9 @@ export default function Update() {
 
     return <Form collection="meals" doc={doc}>
         <TextField name="name"/>
+        <Select collection="restaurants" name="restaurant"/>
+        <Select collection="stores" name="store"/>
+        <TextField name="price" type="number"/>
     </Form>;
 
 }
