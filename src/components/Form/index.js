@@ -1,3 +1,4 @@
+import React from 'react';
 import { Form as FormikForm, Formik } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
@@ -7,13 +8,21 @@ export default function Form({
                                  collection,
                                  children,
                                  doc,
-                                 initialValues,
                              }) {
 
     const db = useDatabase();
     const history = useHistory();
     const params = useParams();
-
+    
+    const initialValues = doc || {};
+    React.Children.toArray(children)
+        .forEach(child => {
+            const {name, type} = child.props;
+            if (!initialValues[name]) {
+                initialValues[name] = type === 'number' ? 0 : '';
+            }
+        });
+    
     function handleDelete() {
         if (window.confirm('Are you sure you want to delete this?')) {
             db.remove(collection, params.id);
@@ -30,7 +39,7 @@ export default function Form({
         history.push(`/${collection}`);
     }
 
-    return <Formik initialValues={doc || initialValues} onSubmit={handleSubmit}>
+    return <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <FormikForm className="bg-gray-100 p-2">
             <table className="w-full">
                 <tbody>

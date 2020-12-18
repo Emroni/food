@@ -2,11 +2,7 @@ import { Form, TextField } from '../../components';
 
 export default function Create() {
 
-    const initialValues = {
-        name: '',
-    };
-
-    return <Form collection="restaurants" initialValues={initialValues}>
+    return <Form collection="restaurants">
         <TextField name="name"/>
     </Form>;
 
