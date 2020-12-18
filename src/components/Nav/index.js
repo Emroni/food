@@ -30,8 +30,8 @@ export default function Nav() {
         },
     ];
 
-    return <nav className="bg-gray-900 leading-none text-white ">
-        <div className="container flex mx-auto px-3 justify-between">
+    return <nav className="bg-gray-900 leading-none text-white">
+        <div className="container flex justify-between mx-auto px-3">
             <div className="flex">
                 {nav.map((item, index) =>
                     <NavLink activeClassName="bg-opacity-10 bg-white" className="block p-3 hover:text-gray-300" key={index} to={item.path}>
