@@ -50,6 +50,10 @@ export function DatabaseProvider({children}) {
             .add(data);
     }
 
+    function find(collection, id) {
+        return data[collection].find(doc => doc.id === id);
+    }
+
     function remove(collection, doc) {
         const db = firebase.firestore();
         db.collection(collection)
@@ -73,6 +77,7 @@ export function DatabaseProvider({children}) {
     const value = {
         ...data,
         add,
+        find,
         remove,
         update,
     };

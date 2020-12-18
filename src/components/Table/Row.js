@@ -15,7 +15,7 @@ export default function Row({
 
     return <tr className="bg-gray-50 even:bg-gray-100 hover:bg-gray-200" onClick={handleClick}>
         {columns.map((column, index) =>
-            <Cell column={column} key={index}>
+            <Cell column={column} key={index} row={data}>
                 {data[column.name]}
             </Cell>)}
     </tr>;

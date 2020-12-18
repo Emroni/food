@@ -4,11 +4,15 @@ import { Link } from '../index';
 export default function Cell({
                                  children,
                                  column,
+                                 row,
                              }) {
 
     const db = useDatabase();
 
-    if (children) {
+    if (column.render) {
+        children = column.render(children, row, column);
+
+    } else if (children) {
         if (column.collection) {
             const doc = db[column.collection].find(doc => doc.id === children);
             children = doc &&

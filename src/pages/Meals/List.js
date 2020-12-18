@@ -1,5 +1,5 @@
 import { useDatabase } from '../../providers';
-import { Button, Table } from '../../components';
+import { Button, Link, Table } from '../../components';
 
 export default function List() {
 
@@ -10,17 +10,44 @@ export default function List() {
             name: 'name',
         },
         {
-            collection: 'restaurants',
-            name: 'restaurant',
-        },
-        {
-            collection: 'stores',
-            name: 'store',
+            name: 'vendor',
+            render: renderVendor,
         },
         {
             name: 'price',
         },
+        {
+            name: 'carbs',
+            render: renderNutrition,
+        },
+        {
+            name: 'fat',
+            render: renderNutrition,
+        },
+        {
+            name: 'protein',
+            render: renderNutrition,
+        },
+        {
+            name: 'calories',
+            render: renderNutrition,
+        },
     ];
+
+    function renderNutrition(value, row, column) {
+        return row[`additional_${column.name}`];
+    }
+
+    function renderVendor(value, row) {
+        let vendor;
+        if (row.restaurant) {
+            vendor = db.find('restaurants', row.restaurant);
+        } else if (row.store) {
+            vendor = db.find('stores', row.store);
+        }
+        return vendor &&
+            <Link href={vendor.website}>{vendor.name}</Link>;
+    }
 
     return <>
         <div className="flex justify-end mb-2">
