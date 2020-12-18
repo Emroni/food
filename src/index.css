@@ -7,6 +7,6 @@ a:focus, button:focus, input:focus {
 }
 
 button:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     pointer-events: none;
 }

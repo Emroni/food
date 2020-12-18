@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import { useDatabase } from '../../providers';
-import { Button, Table } from '../../components';
+import { Button, Search, Table } from '../../components';
 
 export default function List() {
 
     const db = useDatabase();
+    const [rows, setRows] = useState([]);
 
     const columns = [
         {
@@ -25,13 +27,30 @@ export default function List() {
             name: 'calories',
             align: 'right',
         },
+        {
+            collection: 'stores',
+            name: 'store',
+        },
+        {
+            name: 'size',
+            align: 'right',
+        },
+        {
+            name: 'price',
+            align: 'right',
+        },
     ];
 
+    useEffect(() => {
+        setRows(db.ingredients);
+    }, [db.ingredients]);
+
     return <>
-        <div className="flex justify-end mb-2">
-            <Button icon="plus" to="/ingredients/create"/>
+        <div className="flex justify-between mb-2">
+            <Search data={db.ingredients} onChange={setRows}/>
+            <Button className="ml-2" icon="plus" to="/ingredients/create"/>
         </div>
-        <Table collection="ingredients" columns={columns} rows={db.ingredients}/>
+        <Table collection="ingredients" columns={columns} rows={rows}/>
     </>;
 
 }

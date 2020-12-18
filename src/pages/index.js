@@ -8,7 +8,7 @@ export default function Pages() {
 
     return <>
         <Nav/>
-        <main className="container mx-auto p-3">
+        <main className="container mx-auto p-3 sm:py-4 md:py-5 lg:py-6">
             <Ingredients/>
             <Meals/>
             <Restaurants/>
