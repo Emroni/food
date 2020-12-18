@@ -40,25 +40,18 @@ export default function NutritionixField({
         setSuggestions(null);
     }
 
-    return <tr className="hover:bg-gray-50">
-        <td className="p-1">
-            {label || name}
-        </td>
-        <td className="relative p-1">
-            <div className="flex">
-                <input autoComplete="off" className="mr-1 pl-1 w-full" name={name} {...field} {...props}/>
-                {loading ? (
-                    <Loader/>) : (
-                    <Button icon="search" onClick={handleSearch}/>)}
-                {suggestions && (
-                    <ul className="absolute bg-gray-200 left-0 p-1 top-full w-full">
-                        {suggestions.map((suggestion, index) =>
-                            <li className="bg-gray-100 p-1 hover:bg-gray-300" key={index} onClick={() => handleSelect(suggestion)}>
-                                {suggestion.name}
-                            </li>)}
-                    </ul>)}
-            </div>
-        </td>
-    </tr>;
+    return <div className="flex">
+        <input autoComplete="off" className="mr-1 px-2 py-1 w-full" name={name} {...field} {...props}/>
+        {loading ? (
+            <Loader/>) : (
+            <Button icon="search" onClick={handleSearch}/>)}
+        {suggestions && (
+            <ul className="absolute bg-gray-200 left-0 p-1 top-full w-full">
+                {suggestions.map((suggestion, index) =>
+                    <li className="bg-gray-100 p-1 hover:bg-gray-300" key={index} onClick={() => handleSelect(suggestion)}>
+                        {suggestion.name}
+                    </li>)}
+            </ul>)}
+    </div>;
 
 }

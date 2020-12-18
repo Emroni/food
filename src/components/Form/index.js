@@ -13,16 +13,20 @@ export default function Form({
     const db = useDatabase();
     const history = useHistory();
     const params = useParams();
-    
+
+    children = React.Children.toArray(children);
+
     const initialValues = doc || {};
-    React.Children.toArray(children)
-        .forEach(child => {
-            const {name, type} = child.props;
-            if (!initialValues[name]) {
-                initialValues[name] = type === 'number' ? 0 : '';
-            }
-        });
-    
+    children.forEach(child => {
+        const {
+            name,
+            type,
+        } = child.props;
+        if (!initialValues[name]) {
+            initialValues[name] = type === 'number' ? 0 : '';
+        }
+    });
+
     function handleDelete() {
         if (window.confirm('Are you sure you want to delete this?')) {
             db.remove(collection, params.id);
@@ -40,16 +44,27 @@ export default function Form({
     }
 
     return <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <FormikForm className="bg-gray-100 p-2">
-            <table className="w-full">
-                <tbody>
-                    {children}
-                </tbody>
-            </table>
-            <div className="flex justify-between flex-row-reverse">
-                <Button icon={doc ? 'check' : 'plus'} type="submit"/>
-                {doc && (
-                    <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
+        <FormikForm>
+            <div className="bg-gray-100 p-2">
+                <table className="w-full">
+                    <tbody>
+                        {children.map((child, index) =>
+                            <tr className="hover:bg-gray-50" key={index}>
+                                <td className="capitalize p-1">
+                                    {child.props.name.replace(/_/g, ' ')}
+                                </td>
+                                <td className="p-1">
+                                    {child}
+                                </td>
+                            </tr>)}
+                    </tbody>
+                </table>
+                <hr className="my-2"/>
+                <div className="flex justify-between flex-row-reverse">
+                    <Button icon={doc ? 'check' : 'plus'} type="submit"/>
+                    {doc && (
+                        <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
+                </div>
             </div>
         </FormikForm>
     </Formik>;

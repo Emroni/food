@@ -17,21 +17,26 @@ export default function List() {
         },
         {
             name: 'price',
+            align: 'right',
         },
         {
             name: 'carbs',
+            align: 'right',
             render: renderNutrition,
         },
         {
             name: 'fat',
+            align: 'right',
             render: renderNutrition,
         },
         {
             name: 'protein',
+            align: 'right',
             render: renderNutrition,
         },
         {
             name: 'calories',
+            align: 'right',
             render: renderNutrition,
         },
     ];

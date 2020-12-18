@@ -12,14 +12,6 @@ export default function List() {
             name: 'name',
         },
         {
-            collection: 'stores',
-            name: 'store',
-        },
-        {
-            name: 'price',
-            align: 'right',
-        },
-        {
             name: 'carbs',
             align: 'right',
         },
@@ -33,6 +25,18 @@ export default function List() {
         },
         {
             name: 'calories',
+            align: 'right',
+        },
+        {
+            collection: 'stores',
+            name: 'store',
+        },
+        {
+            name: 'size',
+            align: 'right',
+        },
+        {
+            name: 'price',
             align: 'right',
         },
     ];

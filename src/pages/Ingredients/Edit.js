@@ -2,12 +2,12 @@ import { useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
 import { Form, NutritionixField, Select, TextField } from '../../components';
 
-export default function Update() {
+export default function Edit() {
 
     const db = useDatabase();
     const params = useParams();
 
-    const doc = db.ingredients.find(doc => doc.id === params.id);
+    const doc = params.id && db.ingredients.find(doc => doc.id === params.id);
 
     return <Form collection="ingredients" doc={doc}>
         <NutritionixField name="name"/>
