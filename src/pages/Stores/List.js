@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useDatabase } from '../../providers';
-import { Button, Table } from '../../components';
+import { Button, Search, Table } from '../../components';
 
 export default function List() {
 
     const db = useDatabase();
+    const [rows, setRows] = useState(db.restaurants);
 
     const columns = [
         {
@@ -16,10 +18,11 @@ export default function List() {
     ];
 
     return <>
-        <div className="flex justify-end mb-2">
-            <Button icon="plus" to="/stores/create"/>
+        <div className="flex justify-between mb-2">
+            <Search data={db.stores} onChange={setRows}/>
+            <Button className="ml-2" icon="plus" to="/stores/create"/>
         </div>
-        <Table collection="stores" columns={columns} rows={db.stores}/>
+        <Table collection="stores" columns={columns} rows={rows}/>
     </>;
 
 }
