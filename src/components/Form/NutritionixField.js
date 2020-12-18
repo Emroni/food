@@ -14,6 +14,7 @@ export default function NutritionixField({
     const [field] = useField(name);
     const formikContext = useFormikContext();
     const [loading, setLoading] = useState(false);
+    const [suggest, setSuggest] = useState(false);
     const [suggestions, setSuggestions] = useState(null);
 
     async function handleSearch() {
@@ -30,6 +31,7 @@ export default function NutritionixField({
                     protein: Math.round(food.nf_protein * multiplier * 10) / 10,
                 };
             });
+            setSuggest(true);
             setSuggestions(suggestions);
         }
         setLoading(false);
@@ -40,12 +42,12 @@ export default function NutritionixField({
         setSuggestions(null);
     }
 
-    return <div className="flex">
-        <input autoComplete="off" className="mr-1 px-2 py-1 w-full" name={name} {...field} {...props}/>
+    return <div className="flex relative">
+        <input autoComplete="off" className="mr-1 px-2 py-1 w-full" name={name} {...field} {...props} onBlur={() => setSuggest(false)} onFocus={() => setSuggest(true)}/>
         {loading ? (
             <Loader/>) : (
             <Button icon="search" onClick={handleSearch}/>)}
-        {suggestions && (
+        {suggest && suggestions && (
             <ul className="absolute bg-gray-200 left-0 p-1 top-full w-full">
                 {suggestions.map((suggestion, index) =>
                     <li className="bg-gray-100 p-1 hover:bg-gray-300" key={index} onClick={() => handleSelect(suggestion)}>

@@ -10,7 +10,7 @@ export default function Button({
                                    ...props
                                }) {
 
-    const classNames = `bg-gray-100 leading-none p-2 rounded-full hover:bg-gray-200 ${className || ''}`;
+    const classNames = `bg-gray-100 leading-none p-2 rounded-full focus:bg-gray-200 hover:bg-gray-200 ${className || ''}`;
 
     children = children ||
         <Icon name={icon}/>;
