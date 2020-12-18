@@ -6,15 +6,16 @@ module.exports = {
     ],
     variants: {
         backgroundColor: [
-            'responsive',
             'even',
-            'hover',
+            'focus',
             'group-hover',
+            'hover',
+            'responsive',
         ],
         display: [
-            'responsive',
-            'hover',
             'group-hover',
+            'hover',
+            'responsive',
         ],
     },
 }
