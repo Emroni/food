@@ -2,7 +2,7 @@ import React from 'react';
 import { Form as FormikForm, Formik } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Button } from '../';
+import { Button, Divider } from '../';
 
 export default function Form({
                                  collection,
@@ -48,7 +48,7 @@ export default function Form({
             <div className="bg-gray-100 p-2">
                 <table className="w-full">
                     <tbody>
-                        {children.map((child, index) =>
+                        {children.map((child, index) => child.props.name ?
                             <tr className="hover:bg-gray-50" key={index}>
                                 <td className="capitalize p-1">
                                     {child.props.name.replace(/_/g, ' ')}
@@ -56,10 +56,15 @@ export default function Form({
                                 <td className="p-1">
                                     {child}
                                 </td>
+                            </tr> :
+                            <tr key={index}>
+                                <td colSpan={2}>
+                                    {child}
+                                </td>
                             </tr>)}
                     </tbody>
                 </table>
-                <hr className="my-2"/>
+                <Divider/>
                 <div className="flex justify-between flex-row-reverse">
                     <Button icon={doc ? 'check' : 'plus'} type="submit"/>
                     {doc && (

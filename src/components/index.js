@@ -1,4 +1,5 @@
 import Button from './Button';
+import Divider from './Divider';
 import Form from './Form';
 import Icon from './Icon';
 import Link from './Link';
@@ -12,6 +13,7 @@ import TextField from './Form/TextField';
 
 export {
     Button,
+    Divider,
     Form,
     Icon,
     Link,
