@@ -12,7 +12,6 @@
     "firebase": "^8.2.0",
     "formik": "^2.2.6",
     "fuse.js": "^6.4.3",
-    "nutritionix-api": "^1.0.4",
     "postcss": "^7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

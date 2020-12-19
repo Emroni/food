@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useField, useFormikContext } from 'formik';
-import nutritionix from 'nutritionix-api';
 import { Button, Loader } from '../index';
-
-nutritionix.init(process.env.REACT_APP_NUTRITIONIX_APP_ID, process.env.REACT_APP_NUTRITIONIX_API_KEY);
+import clsx from 'clsx';
 
 export default function NutritionixField({
                                              name,
@@ -15,45 +13,92 @@ export default function NutritionixField({
     const formikContext = useFormikContext();
     const [loading, setLoading] = useState(false);
     const [suggest, setSuggest] = useState(false);
-    const [suggestions, setSuggestions] = useState(null);
+    const [suggestions, setSuggestions] = useState();
 
-    async function handleSearch() {
+    async function request(path, data) {
         setLoading(true);
-        const result = await nutritionix.natural.search(field.value);
-        if (result && result.foods) {
-            const suggestions = result.foods.map(food => {
-                const multiplier = 100 / food.serving_weight_grams;
-                return {
-                    calories: Math.round(food.nf_calories * multiplier * 10) / 10,
-                    carbs: Math.round(food.nf_total_carbohydrate * multiplier * 10) / 10,
-                    fat: Math.round(food.nf_total_fat * multiplier * 10) / 10,
-                    name: food.food_name,
-                    protein: Math.round(food.nf_protein * multiplier * 10) / 10,
-                };
-            });
-            setSuggest(true);
-            setSuggestions(suggestions);
-        }
+
+        const response = await fetch(`https://trackapi.nutritionix.com/v2/${path}`, {
+            body: data ? JSON.stringify(data) : null,
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'x-app-id': process.env.REACT_APP_NUTRITIONIX_APP_ID,
+                'x-app-key': process.env.REACT_APP_NUTRITIONIX_API_KEY,
+            }),
+            method: data ? 'post' : 'get',
+        });
+        const results = await response.json();
+
         setLoading(false);
+        return results;
     }
 
-    function handleSelect(suggestion) {
-        formikContext.setValues(suggestion);
+    async function handleSearch() {
+        const results = await request(`search/instant?query=${field.value}`);
+        setSuggest(true);
+        setSuggestions(results);
+    }
+
+    async function handleSelect(suggestion) {
+        let results;
+        if (suggestion.nix_item_id) {
+            results = await request(`search/item?nix_item_id=${suggestion.nix_item_id}`);
+
+        }  else {
+            results = await request('natural/nutrients', {
+                query: suggestion.food_name,
+            });
+        }
+
+        if (results.foods.length) {
+            //TODO: Base calculations on volume, weight or unit
+            const food = results.foods[0];
+            const multiplier = 100 / (food.serving_weight_grams || 1);
+            formikContext.setValues({
+                calories: Math.round(food.nf_calories * multiplier * 10) / 10,
+                carbs: Math.round(food.nf_total_carbohydrate * multiplier * 10) / 10,
+                fat: Math.round(food.nf_total_fat * multiplier * 10) / 10,
+                name: food.food_name,
+                protein: Math.round(food.nf_protein * multiplier * 10) / 10,
+            });
+        }
+
         setSuggestions(null);
     }
 
+    const inputClasses = clsx('mr-1 px-2 py-1 w-full', {
+        'pointer-events-none opacity-50': loading,
+    });
+
+    const suggestionsClasses = clsx('p-1 max-h-60 min-h-30 overflow-auto', {
+        'pointer-events-none opacity-50': loading,
+    });
+
     return <div className="flex relative">
-        <input autoComplete="off" className="mr-1 px-2 py-1 w-full" name={name} {...field} {...props} onBlur={() => setSuggest(false)} onFocus={() => setSuggest(true)}/>
+        <input autoComplete="off" className={inputClasses} name={name} {...field} {...props} onBlur={() => setSuggest(false)} onFocus={() => setSuggest(true)} onKeyDown={() => setSuggestions(null)}/>
         {loading ? (
             <Loader/>) : (
             <Button icon="search" onClick={handleSearch}/>)}
         {suggest && suggestions && (
-            <ul className="absolute bg-gray-200 left-0 p-1 top-full w-full">
-                {suggestions.map((suggestion, index) =>
-                    <li className="bg-gray-100 p-1 hover:bg-gray-300" key={index} onClick={() => handleSelect(suggestion)}>
-                        {suggestion.name}
-                    </li>)}
-            </ul>)}
+            <div className="absolute bg-gray-200 left-0 mt-1 p-1 top-full w-full">
+                <div className="p-1">{suggestions.common.length} common, {suggestions.branded.length} branded</div>
+                <div className={suggestionsClasses}>
+                    <div className="bg-gray-300 p-1">Common</div>
+                    <ul className="bg-gray-50 p-1">
+                        {suggestions.common.map((suggestion, index) =>
+                            <li className="p-1 even:bg-gray-100 hover:bg-gray-200" key={index} onClick={() => handleSelect(suggestion)}>
+                                {suggestion.food_name}
+                            </li>)}
+                    </ul>
+                    <div className="bg-gray-300 p-1 mt-2">Branded</div>
+                    <ul className="bg-gray-50 p-1">
+                        {suggestions.branded.map((suggestion, index) =>
+                            <li className="p-1 even:bg-gray-100 hover:bg-gray-200" key={index} onClick={() => handleSelect(suggestion)}>
+                                {suggestion.food_name}
+                            </li>)}
+                    </ul>
+                </div>
+            </div>)}
     </div>;
 
 }
