@@ -11,6 +11,7 @@ export default function Edit() {
 
     return <Form collection="ingredients" doc={doc}>
         <NutritionixField name="name"/>
+        <TextField name="image" type="url"/>
         <TextField name="carbs" type="number"/>
         <TextField name="fat" type="number"/>
         <TextField name="protein" type="number"/>
