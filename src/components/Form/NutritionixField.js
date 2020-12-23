@@ -54,14 +54,12 @@ export default function NutritionixField({
             //TODO: Base calculations on volume, weight or unit
             const food = results.foods[0];
             const multiplier = 100 / (food.serving_weight_grams || 1);
-            formikContext.setValues({
-                calories: Math.round(food.nf_calories * multiplier * 10) / 10,
-                carbs: Math.round(food.nf_total_carbohydrate * multiplier * 10) / 10,
-                fat: Math.round(food.nf_total_fat * multiplier * 10) / 10,
-                image: food.photo.thumb,
-                name: food.food_name,
-                protein: Math.round(food.nf_protein * multiplier * 10) / 10,
-            });
+            formikContext.setFieldValue('calories', Math.round(food.nf_calories * multiplier * 10) / 10);
+            formikContext.setFieldValue('carbs', Math.round(food.nf_total_carbohydrate * multiplier * 10) / 10);
+            formikContext.setFieldValue('fat', Math.round(food.nf_total_fat * multiplier * 10) / 10);
+            formikContext.setFieldValue('image', food.photo.thumb);
+            formikContext.setFieldValue('name', food.food_name);
+            formikContext.setFieldValue('protein', Math.round(food.nf_protein * multiplier * 10) / 10);
         }
 
         setSuggestions(null);
