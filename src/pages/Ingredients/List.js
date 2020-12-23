@@ -9,6 +9,10 @@ export default function List() {
 
     const columns = [
         {
+            name: 'image',
+            type: 'thumbnail',
+        },
+        {
             name: 'name',
         },
         {

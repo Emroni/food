@@ -20,6 +20,10 @@ export default function Cell({
                     {doc.name}
                 </Link>;
 
+        } else if (column.type === 'thumbnail') {
+            children =
+                <img alt={row.name} className="max-h-6" src={children}/>;
+
         } else if (column.type === 'url') {
             children =
                 <Link href={children}>
