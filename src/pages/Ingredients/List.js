@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDatabase } from '../../providers';
-import { Button, Search, Table } from '../../components';
+import { Button, Protected, Search, Table } from '../../components';
 
 export default function List() {
 
@@ -52,7 +52,9 @@ export default function List() {
     return <>
         <div className="flex justify-between mb-2">
             <Search data={db.ingredients} onChange={setRows}/>
-            <Button className="ml-2" icon="plus" to="/ingredients/create"/>
+            <Protected>
+                <Button className="ml-2" icon="plus" to="/ingredients/create"/>
+            </Protected>
         </div>
         <Table collection="ingredients" columns={columns} rows={rows}/>
     </>;
