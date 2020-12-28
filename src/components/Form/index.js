@@ -48,7 +48,7 @@ export default function Form({
             <table>
                 <thead>
                     <tr>
-                        <th colSpan={2}>{doc.name}</th>
+                        <th colSpan={2}>{doc ? doc.name : 'Add'}</th>
                     </tr>
                 </thead>
                 <tbody>
