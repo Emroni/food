@@ -46,7 +46,7 @@ export function DatabaseProvider({children}) {
 
     function add(collection, data) {
         const db = firebase.firestore();
-        db.collection(collection)
+        return db.collection(collection)
             .add(data);
     }
 
@@ -56,14 +56,14 @@ export function DatabaseProvider({children}) {
 
     function remove(collection, doc) {
         const db = firebase.firestore();
-        db.collection(collection)
+        return db.collection(collection)
             .doc(doc)
             .delete();
     }
 
     function update(collection, doc, data) {
         const db = firebase.firestore();
-        db.collection(collection)
+        return db.collection(collection)
             .doc(doc)
             .update(data);
     }
