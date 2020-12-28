@@ -85,14 +85,14 @@ export default function NutritionixField({
                     <div className="bg-gray-300 p-1">Common</div>
                     <ul className="bg-gray-50 p-1">
                         {suggestions.common.map((suggestion, index) =>
-                            <li className="p-1 even:bg-gray-100 hover:bg-gray-200" key={index} onClick={() => handleSelect(suggestion)}>
+                            <li className="cursor-pointer p-1 even:bg-gray-100 hover:bg-gray-200" key={index} onClick={() => handleSelect(suggestion)}>
                                 {suggestion.food_name}
                             </li>)}
                     </ul>
                     <div className="bg-gray-300 p-1 mt-2">Branded</div>
                     <ul className="bg-gray-50 p-1">
                         {suggestions.branded.map((suggestion, index) =>
-                            <li className="p-1 even:bg-gray-100 hover:bg-gray-200" key={index} onClick={() => handleSelect(suggestion)}>
+                            <li className="cursor-pointer p-1 even:bg-gray-100 hover:bg-gray-200" key={index} onClick={() => handleSelect(suggestion)}>
                                 {suggestion.food_name}
                             </li>)}
                     </ul>
