@@ -11,7 +11,7 @@ export default function Read() {
     const meals = db.meals.filter(doc => doc.restaurant === params.id);
 
     return <>
-        <Protected>
+        <Protected role="admin">
             <div className="flex justify-end mb-2">
                 <Button icon="edit" to={`/restaurants/${doc.id}/update`}/>
             </div>

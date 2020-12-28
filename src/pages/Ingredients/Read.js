@@ -10,7 +10,7 @@ export default function Read() {
     const doc = db.ingredients.find(doc => doc.id === params.id);
 
     return <>
-        <Protected>
+        <Protected role="admin">
             <div className="flex justify-end mb-2">
                 <Button icon="edit" to={`/ingredients/${doc.id}/update`}/>
             </div>

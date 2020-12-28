@@ -39,7 +39,6 @@ export function AuthProvider({children}) {
         setError(null);
 
         const auth = firebase.auth();
-
         auth.signInWithEmailAndPassword(email, password)
             .catch(e => {
                 setAuthenticating(false);
