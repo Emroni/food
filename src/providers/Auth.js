@@ -13,7 +13,25 @@ export function AuthProvider({children}) {
 
     useEffect(() => {
         const auth = firebase.auth();
-        auth.onAuthStateChanged(setUser);
+        const db = firebase.firestore();
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                setAuthenticating(true);
+                db.collection('users')
+                    .doc(user.uid)
+                    .get()
+                    .then((doc) => {
+                        setUser({
+                            ...(doc.data() || {}),
+                            email: user.email,
+                            uid: user.uid,
+                        });
+                        setAuthenticating(false);
+                    });
+            } else {
+                setUser(null);
+            }
+        });
     }, []);
 
     function login(email, password) {
@@ -22,20 +40,22 @@ export function AuthProvider({children}) {
 
         const auth = firebase.auth();
         auth.signInWithEmailAndPassword(email, password)
-            .then(credentials => {
-                setAuthenticating(false);
-                setUser(credentials.user);
-            })
             .catch(e => {
                 setAuthenticating(false);
                 setError(e.message);
             });
     }
 
+    function logout() {
+        const auth = firebase.auth();
+        auth.signOut();
+    }
+
     const value = {
         authenticating,
         error,
         login,
+        logout,
         user,
     };
 

@@ -1,5 +1,5 @@
 import { useDatabase } from '../../providers';
-import { Link } from '../index';
+import { Image, Link } from '../index';
 
 export default function Cell({
                                  children,
@@ -22,7 +22,7 @@ export default function Cell({
 
         } else if (column.type === 'thumbnail') {
             children =
-                <img alt={row.name} className="max-h-6" src={children}/>;
+                <Image size="2xl" src={children}/>;
 
         } else if (column.type === 'url') {
             children =

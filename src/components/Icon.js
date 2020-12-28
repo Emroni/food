@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCarrot, faCheck, faCircleNotch, faEdit, faExternalLinkAlt, faPlus, faSearch, faStore, faStoreAlt, faTimes, faUserCircle, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faCarrot, faCheck, faCircleNotch, faEdit, faExternalLinkAlt, faImage, faPlus, faSearch, faStore, faStoreAlt, faTimes, faUserCircle, faUtensils } from '@fortawesome/free-solid-svg-icons';
 
 export const icons = {
     'carrot': faCarrot,
@@ -7,6 +7,7 @@ export const icons = {
     'circle-notch': faCircleNotch,
     'edit': faEdit,
     'external-link-alt': faExternalLinkAlt,
+    'image': faImage,
     'plus': faPlus,
     'search': faSearch,
     'store': faStore,

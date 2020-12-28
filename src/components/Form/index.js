@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form as FormikForm, Formik } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
 import { Button, Divider } from '../';
+import clsx from 'clsx';
 
 export default function Form({
                                  collection,
@@ -10,6 +11,7 @@ export default function Form({
                                  doc,
                              }) {
 
+    const [loading, setLoading] = useState(false);
     const db = useDatabase();
     const history = useHistory();
     const params = useParams();
@@ -35,20 +37,31 @@ export default function Form({
     }
 
     function handleSubmit(values) {
+        setLoading(true);
+
+        let promise;
         if (doc) {
-            db.update(collection, params.id, values);
+            promise = db.update(collection, params.id, values);
         } else {
-            db.add(collection, values);
+            promise = db.add(collection, values);
         }
-        history.push(`/${collection}`);
+
+        promise.then(doc => {
+            setLoading(false);
+            history.push(`/${collection}/${doc ? doc.id : params.id}`);
+        });
     }
 
+    const formClasses = clsx({
+        'opacity-70 pointer-events-none': loading,
+    });
+
     return <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <FormikForm>
+        <FormikForm className={formClasses}>
             <table>
                 <thead>
                     <tr>
-                        <th colSpan={2}>{doc.name}</th>
+                        <th colSpan={2}>{doc ? doc.name : 'Add'}</th>
                     </tr>
                 </thead>
                 <tbody>

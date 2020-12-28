@@ -9,7 +9,7 @@ export default function Edit() {
 
     const doc = params.id && db.ingredients.find(doc => doc.id === params.id);
 
-    return <Protected>
+    return <Protected role="admin">
         <Form collection="ingredients" doc={doc}>
             <NutritionixField name="name"/>
             <TextField name="image" type="url"/>

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../providers';
 import { Icon } from '../';
+import Account from './Account';
 import Login from './Login';
 
 export default function Nav() {
@@ -39,9 +40,10 @@ export default function Nav() {
                         <span className="hidden ml-2 sm:inline">{item.name}</span>
                     </NavLink>)}
             </div>
-            <div>
-                {!auth.user && (
-                    <Login/>)}
+            <div className="text-xl">
+                {auth.user ?
+                    <Account/> :
+                    <Login/>}
             </div>
         </div>
     </nav>;
