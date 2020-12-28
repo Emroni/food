@@ -45,31 +45,28 @@ export default function Form({
 
     return <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <FormikForm>
-            <div className="bg-gray-100 p-2">
-                <table className="w-full">
-                    <tbody>
-                        {children.map((child, index) => child.props.name ?
-                            <tr className="hover:bg-gray-50" key={index}>
-                                <td className="capitalize p-1">
-                                    {child.props.name.replace(/_/g, ' ')}
-                                </td>
-                                <td className="p-1">
-                                    {child}
-                                </td>
-                            </tr> :
-                            <tr key={index}>
-                                <td colSpan={2}>
-                                    {child}
-                                </td>
-                            </tr>)}
-                    </tbody>
-                </table>
-                <Divider/>
-                <div className="flex justify-between flex-row-reverse">
-                    <Button icon={doc ? 'check' : 'plus'} type="submit"/>
-                    {doc && (
-                        <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
-                </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th colSpan={2}>{doc.name}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {children.map((child, index) => child.props.name ?
+                        <tr key={index}>
+                            <th>{child.props.name.replace(/_/g, ' ')}</th>
+                            <td>{child}</td>
+                        </tr> :
+                        <tr key={index}>
+                            <td colSpan={2}>{child}</td>
+                        </tr>)}
+                </tbody>
+            </table>
+            <Divider/>
+            <div className="flex justify-between flex-row-reverse">
+                <Button className="text-green-500" icon={doc ? 'check' : 'plus'} type="submit"/>
+                {doc && (
+                    <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
             </div>
         </FormikForm>
     </Formik>;

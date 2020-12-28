@@ -8011,11 +8011,6 @@ num2fraction@^1.2.2:
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4=
 
-nutritionix-api@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/nutritionix-api/-/nutritionix-api-1.0.4.tgz#323a36ff4d13af4523a10b020d6d5e5c75e13c32"
-  integrity sha512-vsKlA291279dF6N5L7m2c34mWZ1OeOppZMC6kjn81gADzWyKKpMjDlz+xsKt7tqtPHJgLrfmJog+XYpLVcnPXg==
-
 nwsapi@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"

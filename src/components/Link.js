@@ -8,7 +8,7 @@ export default function Link({
                                  ...props
                              }) {
 
-    const classNames = `underline ${className}`;
+    const classNames = `underline hover:no-underline ${className}`;
 
     if (href) {
         return <a className={classNames} href={href} rel="noreferrer" target="_blank" onClick={e => e.stopPropagation()} {...props}>

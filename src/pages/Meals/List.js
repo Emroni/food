@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDatabase } from '../../providers';
-import { Button, Link, Search, Table } from '../../components';
+import { Button, Link, Protected, Search, Table } from '../../components';
 
 export default function List() {
 
@@ -46,14 +46,13 @@ export default function List() {
     }
 
     function renderVendor(value, row) {
-        let vendor;
         if (row.restaurant) {
-            vendor = db.find('restaurants', row.restaurant);
+            const restaurant = db.find('restaurants', row.restaurant);
+            return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
         } else if (row.store) {
-            vendor = db.find('stores', row.store);
+            const store = db.find('stores', row.store);
+            return <Link to={`/stores/${store.id}`}>{store.name}</Link>;
         }
-        return vendor &&
-            <Link href={vendor.website}>{vendor.name}</Link>;
     }
 
     useEffect(() => {
@@ -63,7 +62,9 @@ export default function List() {
     return <>
         <div className="flex justify-between mb-2">
             <Search data={db.meals} onChange={setRows}/>
-            <Button className="ml-2" icon="plus" to="/meals/create"/>
+            <Protected>
+                <Button className="ml-2" icon="plus" to="/meals/create"/>
+            </Protected>
         </div>
         <Table collection="meals" columns={columns} rows={rows}/>
     </>;

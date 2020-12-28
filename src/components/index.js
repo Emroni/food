@@ -6,6 +6,7 @@ import Link from './Link';
 import Loader from './Loader';
 import Nav from './Nav';
 import NutritionixField from './Form/NutritionixField';
+import Protected from './Protected';
 import Search from './Search';
 import Select from './Form/Select';
 import Table from './Table';
@@ -20,6 +21,7 @@ export {
     Loader,
     Nav,
     NutritionixField,
+    Protected,
     Search,
     Select,
     Table,
