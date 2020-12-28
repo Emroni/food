@@ -13,11 +13,14 @@ export default function Read() {
         return doc[`additional_${type}`];
     }
 
-    let vendor;
-    if (doc.restaurant) {
-        vendor = db.find('restaurants', doc.restaurant);
-    } else if (doc.store) {
-        vendor = db.find('stores', doc.store);
+    function getVendor() {
+        if (doc.restaurant) {
+            const restaurant = db.find('restaurants', doc.restaurant);
+            return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
+        } else if (doc.store) {
+            const store = db.find('stores', doc.store);
+            return <Link to={`/stores/${store.id}`}>{store.name}</Link>;
+        }
     }
 
     return <>
@@ -35,10 +38,7 @@ export default function Read() {
             <tbody>
                 <tr>
                     <th>vendor</th>
-                    <td>
-                        {vendor && (
-                            <Link href={vendor.website}>{vendor.name}</Link>)}
-                    </td>
+                    <td>{getVendor()}</td>
                 </tr>
                 <tr>
                     <th>price</th>

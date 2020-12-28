@@ -8,6 +8,8 @@ export default function Read() {
     const params = useParams();
 
     const doc = db.stores.find(doc => doc.id === params.id);
+    const ingredients = db.ingredients.filter(doc => doc.store === params.id);
+    const meals = db.meals.filter(doc => doc.store === params.id);
 
     return <>
         <Protected>
@@ -27,6 +29,24 @@ export default function Read() {
                     <td>
                         {doc.website && (
                             <Link href={doc.website}>{doc.website}</Link>)}
+                    </td>
+                </tr>
+                <tr>
+                    <th>ingredients</th>
+                    <td>
+                        {ingredients.map((meal, index) =>
+                            <div key={index}>
+                                <Link to={`/ingredients/${meal.id}`}>{meal.name}</Link>
+                            </div>)}
+                    </td>
+                </tr>
+                <tr>
+                    <th>meals</th>
+                    <td>
+                        {meals.map((meal, index) =>
+                            <div key={index}>
+                                <Link to={`/meals/${meal.id}`}>{meal.name}</Link>
+                            </div>)}
                     </td>
                 </tr>
             </tbody>
