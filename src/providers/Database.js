@@ -68,16 +68,11 @@ export function DatabaseProvider({children}) {
             .update(data);
     }
 
-    if (loaded < 4) {
-        return <div className="flex h-screen items-center justify-center">
-            <div className="text-3xl">Loading</div>
-        </div>;
-    }
-
     const value = {
         ...data,
         add,
         find,
+        loading: loaded < 4,
         remove,
         update,
     };
