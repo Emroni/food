@@ -62,7 +62,7 @@ export default function List() {
     return <>
         <div className="flex justify-between mb-2">
             <Search data={db.meals} onChange={setRows}/>
-            <Protected>
+            <Protected role="admin">
                 <Button className="ml-2" icon="plus" to="/meals/create"/>
             </Protected>
         </div>

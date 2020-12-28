@@ -24,7 +24,7 @@ export default function Read() {
     }
 
     return <>
-        <Protected>
+        <Protected role="admin">
             <div className="flex justify-end mb-2">
                 <Button icon="edit" to={`/meals/${doc.id}/update`}/>
             </div>
