@@ -7,11 +7,11 @@ export default function Table({
                               }) {
 
     return <div className="overflow-y-auto">
-        <table className="w-full">
+        <table>
             <thead>
-                <tr className="bg-gray-300">
+                <tr>
                     {columns.map((column, index) =>
-                        <th align={column.align || 'left'} className="capitalize px-2 py-1" key={index}>
+                        <th align={column.align} key={index}>
                             {column.name}
                         </th>)}
                 </tr>

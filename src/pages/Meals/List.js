@@ -46,14 +46,13 @@ export default function List() {
     }
 
     function renderVendor(value, row) {
-        let vendor;
         if (row.restaurant) {
-            vendor = db.find('restaurants', row.restaurant);
+            const restaurant = db.find('restaurants', row.restaurant);
+            return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
         } else if (row.store) {
-            vendor = db.find('stores', row.store);
+            const store = db.find('stores', row.store);
+            return <Link to={`/stores/${store.id}`}>{store.name}</Link>;
         }
-        return vendor &&
-            <Link href={vendor.website}>{vendor.name}</Link>;
     }
 
     useEffect(() => {

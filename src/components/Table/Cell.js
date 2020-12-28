@@ -32,7 +32,7 @@ export default function Cell({
         }
     }
 
-    return <td align={column.align || 'left'} className="px-2 py-1">
+    return <td align={column.align}>
         {children}
     </td>;
 
