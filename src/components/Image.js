@@ -38,10 +38,22 @@ export default function Image({
     ]);
 
     const classNames = clsx('bg-center bg-cover leading-none', className, {
-        border: path,
-        rounded: !circular,
+        'border': path,
+        'rounded': !circular,
         'rounded-full': circular,
-        [`text-${size}`]: size,
+        'text-xs': size === 'xs',
+        'text-sm': size === 'sm',
+        'text-md': size === 'md',
+        'text-lg': size === 'lg',
+        'text-xl': size === 'xl',
+        'text-2xl': size === '2xl',
+        'text-3xl': size === '3xl',
+        'text-4xl': size === '4xl',
+        'text-5xl': size === '5xl',
+        'text-6xl': size === '6xl',
+        'text-7xl': size === '7xl',
+        'text-8xl': size === '8xl',
+        'text-9xl': size === '9xl',
     });
 
     const style = {
