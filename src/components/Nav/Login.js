@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 import { useAuth } from '../../providers';
 import { Icon } from '../';
 
@@ -14,14 +15,18 @@ export default function Login() {
         auth.login(email, password);
     }
 
-    return <div>
-        <button className="p-3" type="button" onClick={() => setOpen(true)}>
+    const buttonClasses = clsx('h-full px-2 text-gray-500 hover:text-white', {
+        'bg-opacity-10 bg-white': open,
+    });
+
+    return <>
+        <button className={buttonClasses} type="button" onClick={() => setOpen(true)}>
             <Icon name="user-circle"/>
         </button>
         {open && (
             <div className="fixed h-full left-0 top-0 w-full z-50">
                 <div className="flex h-full items-center justify-center">
-                    <div className="absolute bg-black bg-opacity-70 h-full left-0 top-0 w-full z-40" onClick={() => setOpen(false)}/>
+                    <div className="fixed bg-black bg-opacity-70 h-full left-0 top-0 w-full z-40" onClick={() => setOpen(false)}/>
                     <form className="bg-gray-900 p-4 w-full max-w-sm relative z-50" onSubmit={handleLogin}>
                         <input className="block mb-2 p-2 text-black w-full" disabled={auth.authenticating} name="email" placeholder="Email" type="email" value={email} onChange={e => setEmail(e.currentTarget.value)}/>
                         <input className="block mb-2 p-2 text-black w-full" disabled={auth.authenticating} minLength={6} name="password" placeholder="Password" type="password" value={password} onChange={e => setPassword(e.currentTarget.value)}/>
@@ -31,6 +36,6 @@ export default function Login() {
                     </form>
                 </div>
             </div>)}
-    </div>;
+    </>;
 
 }
