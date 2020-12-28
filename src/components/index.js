@@ -2,6 +2,7 @@ import Button from './Button';
 import Divider from './Divider';
 import Form from './Form';
 import Icon from './Icon';
+import Image from './Image';
 import Link from './Link';
 import Loader from './Loader';
 import Nav from './Nav';
@@ -17,6 +18,7 @@ export {
     Divider,
     Form,
     Icon,
+    Image,
     Link,
     Loader,
     Nav,
