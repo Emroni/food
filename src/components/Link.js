@@ -15,8 +15,10 @@ export default function Link({
 
     if (restaurant) {
         restaurant = db.find('restaurants', restaurant);
-        to = `/restaurants/${restaurant.id}`;
-        children = restaurant.name;
+        if (restaurant) {
+            to = `/restaurants/${restaurant.id}`;
+            children = restaurant.name;
+        }
 
     } else if (href) {
         return <a className={classNames} href={href} rel="noreferrer" target="_blank" onClick={e => e.stopPropagation()} {...props}>{children}</a>;
