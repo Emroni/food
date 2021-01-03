@@ -39,11 +39,14 @@ export default function Form({
     function handleSubmit(values) {
         setLoading(true);
 
+        const data = {...values};
+        delete data.id;
+
         let promise;
         if (doc) {
-            promise = db.update(collection, params.id, values);
+            promise = db.update(collection, params.id, data);
         } else {
-            promise = db.add(collection, values);
+            promise = db.add(collection, data);
         }
 
         promise.then(doc => {
