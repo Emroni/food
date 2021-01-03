@@ -20,10 +20,10 @@ export default function Meals() {
         submitForm,
     ])
 
-    return <>
+    return <div className="flex-1 md:flex">
         <Meal time="breakfast"/>
         <Meal time="lunch"/>
         <Meal time="dinner"/>
-    </>;
+    </div>;
 
 }

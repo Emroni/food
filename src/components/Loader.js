@@ -1,8 +1,11 @@
 import { Icon } from './';
+import clsx from 'clsx';
 
-export default function Loader() {
+export default function Loader({className}) {
 
-    return <div className="inline-block leading-none p-2">
+    const containerClasses = clsx('inline-block leading-none p-2', className);
+
+    return <div className={containerClasses}>
         <Icon className="animate-spin" name="circle-notch"/>
     </div>;
 

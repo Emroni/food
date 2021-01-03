@@ -20,8 +20,8 @@ export default function Day({date}) {
         formattedDate,
     ]);
 
-    return <Form className="flex mb-4" collection="calendar" doc={day}>
-        <div className="bg-gray-400 flex justify-between px-2 py-1 w-28">
+    return <Form className="group mb-4 md:flex" collection="calendar" doc={day}>
+        <div className="bg-gray-500 flex justify-between px-2 py-1 md:w-28 group-hover:bg-gray-600">
             <span className="font-bold text-white">{date.format('ddd')}</span>
             <span className="text-gray-200">{date.format('DD-MM')}</span>
         </div>

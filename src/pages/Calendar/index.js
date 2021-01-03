@@ -16,11 +16,11 @@ export default function Calendar() {
     }, []);
 
     return <>
-        <div className="flex mb-1 text-white">
+        <div className="hidden mb-1 text-white md:flex">
             <div className="w-28"/>
-            <div className="bg-gray-500 flex-1 ml-0.5 px-2 py-1">Breakfast</div>
-            <div className="bg-gray-500 flex-1 ml-0.5 px-2 py-1">Lunch</div>
-            <div className="bg-gray-500 flex-1 ml-0.5 px-2 py-1">Dinner</div>
+            <div className="bg-gray-400 capitalize flex-1 ml-0.5 px-2 py-1">Breakfast</div>
+            <div className="bg-gray-400 capitalize flex-1 ml-0.5 px-2 py-1">Lunch</div>
+            <div className="bg-gray-400 capitalize flex-1 ml-0.5 px-2 py-1">Dinner</div>
         </div>
         {dates.map((date, index) =>
             <Day date={date} key={index}/>)}
