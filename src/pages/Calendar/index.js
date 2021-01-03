@@ -15,23 +15,15 @@ export default function Calendar() {
         setDates(dates);
     }, []);
 
-    return <table className="table-fixed">
-        <thead>
-            <tr>
-                <th className="w-40" colSpan={2}/>
-                <th>Breakfast</th>
-                <th>Lunch</th>
-                <th>Dinner</th>
-            </tr>
-        </thead>
-        <tbody>
-            {dates.map((date, index) =>
-                <tr key={index}>
-                    <th>{date.format('ddd')}</th>
-                    <th className="text-gray-500 text-right">{date.format('DD-MM')}</th>
-                    <Day date={date}/>
-                </tr>)}
-        </tbody>
-    </table>;
+    return <>
+        <div className="flex mb-1 text-white">
+            <div className="w-28"/>
+            <div className="bg-gray-500 flex-1 ml-0.5 px-2 py-1">Breakfast</div>
+            <div className="bg-gray-500 flex-1 ml-0.5 px-2 py-1">Lunch</div>
+            <div className="bg-gray-500 flex-1 ml-0.5 px-2 py-1">Dinner</div>
+        </div>
+        {dates.map((date, index) =>
+            <Day date={date} key={index}/>)}
+    </>;
 
 }

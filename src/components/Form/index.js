@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Form as FormikForm, Formik } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAuth, useDatabase } from '../../providers';
-import { Button, Divider } from '../';
+// import { Button, Divider } from '../';
 import clsx from 'clsx';
 
+// TODO: Fix on Meals and Restaurants
 export default function Form({
-                                 collection,
                                  children,
+                                 className,
+                                 collection,
                                  doc,
+                                redirect,
                              }) {
 
     const [loading, setLoading] = useState(false);
@@ -30,12 +33,12 @@ export default function Form({
         }
     });
 
-    function handleDelete() {
-        if (window.confirm('Are you sure you want to delete this?')) {
-            db.remove(collection, params.id);
-            history.push(`/${collection}`);
-        }
-    }
+    // function handleDelete() {
+    //     if (window.confirm('Are you sure you want to delete this?')) {
+    //         db.remove(collection, params.id);
+    //         history.push(`/${collection}`);
+    //     }
+    // }
 
     function handleSubmit(values) {
         setLoading(true);
@@ -47,25 +50,29 @@ export default function Form({
         delete data.id;
 
         let promise;
-        if (doc) {
-            promise = db.update(collection, params.id, data);
+        if (doc && doc.id) {
+            promise = db.update(collection, doc.id, data);
         } else {
             promise = db.add(collection, data);
         }
 
         promise.then(doc => {
             setLoading(false);
-            history.push(`/${collection}/${doc ? doc.id : params.id}`);
+            if (redirect) {
+                const id = (doc && doc.id) || params.id;
+                history.push(`/${collection}/${id}`);
+            }
         });
     }
 
     const formClasses = clsx({
         'opacity-70 pointer-events-none': loading,
-    });
+    }, className);
 
-    return <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    return <Formik enableReinitialize initialValues={initialValues} onSubmit={handleSubmit}>
         <FormikForm className={formClasses}>
-            <table>
+            {children}
+            {/*<table>
                 <thead>
                     <tr>
                         <th colSpan={2}>{doc ? doc.name : 'Add'}</th>
@@ -87,7 +94,7 @@ export default function Form({
                 <Button className="text-green-500" icon={doc ? 'check' : 'plus'} type="submit"/>
                 {doc && (
                     <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
-            </div>
+            </div>*/}
         </FormikForm>
     </Formik>;
 

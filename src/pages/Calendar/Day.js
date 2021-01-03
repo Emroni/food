@@ -1,35 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useDatabase } from '../../providers';
-import { Link } from '../../components';
+import { Form } from '../../components';
+import Meals from './Meals';
 
 export default function Day({date}) {
 
+    const [day, setDay] = useState(null);
     const db = useDatabase();
-    const [day, setDay] = useState({});
+    const formattedDate = date.format('YYYY-MM-DD');
 
     useEffect(() => {
-        if (date) {
-            const formattedDate = date.format('YYYY-MM-DD');
-            const day = db.calendar.find(item => item.date === formattedDate);
-            if (day) {
-                setDay(day);
-            }
-        }
+        const day = db.calendar.find(item => item.date === formattedDate) || {
+            date: formattedDate,
+        };
+        setDay(day);
     }, [
         db.calendar,
         date,
+        formattedDate,
     ]);
 
-    return <>
-        <td className="border-l border-white">
-            <Link meal={day.breakfast}/>
-        </td>
-        <td className="border-l border-white">
-            <Link meal={day.lunch}/>
-        </td>
-        <td className="border-l border-white">
-            <Link meal={day.dinner}/>
-        </td>
-    </>;
+    return <Form className="flex mb-4" collection="calendar" doc={day}>
+        <div className="bg-gray-400 flex justify-between px-2 py-1 w-28">
+            <span className="font-bold text-white">{date.format('ddd')}</span>
+            <span className="text-gray-200">{date.format('DD-MM')}</span>
+        </div>
+        <Meals/>
+    </Form>;
 
 }
