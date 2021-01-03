@@ -1,12 +1,24 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useDatabase } from '../providers';
+import { useAuth, useDatabase } from '../providers';
 import { Loader, Nav } from '../components';
+import Auth from './Auth';
 import Meals from './Meals';
 import Restaurants from './Restaurants';
 
 export default function Pages() {
 
+    const auth = useAuth();
     const db = useDatabase();
+
+    if (!auth.ready) {
+        return <div className="pt-8 text-center text-5xl">
+            <Loader/>
+        </div>;
+    }
+
+    if (!auth.user) {
+        return <Auth/>;
+    }
 
     return <div className={db.loading ? 'pointer-events-none' : ''}>
         <Nav/>
