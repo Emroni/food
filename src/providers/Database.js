@@ -9,6 +9,7 @@ export const useDatabase = () => useContext(DatabaseContext);
 export function DatabaseProvider({children}) {
 
     const [data, setData] = useState({
+        calendar: [],
         meals: [],
         restaurants: [],
     });
@@ -21,9 +22,12 @@ export function DatabaseProvider({children}) {
             if (!subscriptions.length) {
                 const db = firebase.firestore();
 
-                const get = (collection, where) => {
-                    let subscription = db.collection(collection)
-                        .orderBy('name');
+                const get = (collection, orderBy, where) => {
+                    let subscription = db.collection(collection);
+
+                    if (orderBy) {
+                        subscription = subscription.orderBy(orderBy);
+                    }
 
                     if (where) {
                         Object.entries(where)
@@ -53,7 +57,10 @@ export function DatabaseProvider({children}) {
                 }
 
                 setSubscriptions([
-                    get('meals', {
+                    get('calendar', 'date', {
+                        user_uid: auth.user.uid,
+                    }),
+                    get('meals', 'name', {
                         user_uid: auth.user.uid,
                     }),
                     get('restaurants'),
@@ -62,6 +69,7 @@ export function DatabaseProvider({children}) {
             
         } else if (subscriptions.length) {
             setData({
+                calendar: [],
                 meals: [],
                 restaurants: [],
             });
