@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { useAuth, useDatabase } from '../providers';
 import { Loader, Nav } from '../components';
 import Auth from './Auth';
+import Calendar from './Calendar';
 import Meals from './Meals';
 import Restaurants from './Restaurants';
 
@@ -28,9 +29,10 @@ export default function Pages() {
                     <Loader/>
                 </div> :
                 <Switch>
+                    <Route component={Calendar} path="/calendar"/>
                     <Route component={Meals} path="/meals"/>
                     <Route component={Restaurants} path="/restaurants"/>
-                    <Redirect to="/meals"/>
+                    <Redirect to="/calendar"/>
                 </Switch>}
         </main>
     </div>;

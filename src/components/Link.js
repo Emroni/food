@@ -5,6 +5,7 @@ export default function Link({
                                  children,
                                  className,
                                  href,
+                                 meal,
                                  restaurant,
                                  to,
                                  ...props
@@ -13,7 +14,14 @@ export default function Link({
     const db = useDatabase();
     const classNames = `underline hover:no-underline ${className}`;
 
-    if (restaurant) {
+    if (meal) {
+        meal = db.find('meals', meal);
+        if (meal) {
+            to = `/meals/${meal.id}`;
+            children = meal.name;
+        }
+
+    } else if (restaurant) {
         restaurant = db.find('restaurants', restaurant);
         if (restaurant) {
             to = `/restaurants/${restaurant.id}`;
