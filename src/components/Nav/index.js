@@ -6,6 +6,11 @@ export default function Nav() {
 
     const nav = [
         {
+            icon: 'calendar-alt',
+            name: 'Calendar',
+            path: '/calendar',
+        },
+        {
             icon: 'utensils',
             name: 'Meals',
             path: '/meals',
