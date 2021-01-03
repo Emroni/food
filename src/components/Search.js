@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Fuse from 'fuse.js';
 
 export default function Search({
@@ -7,18 +8,23 @@ export default function Search({
                                    ...props
                                }) {
 
-    const classNames = `bg-gray-100 px-2 py-1 w-full ${className}`
+    const [fuse, setFuse] = useState(null);
+    const classNames = `bg-gray-100 px-2 py-1 w-full ${className}`;
 
-    const fuse = new Fuse(data, {
-        keys: data.length && Object.keys(data[0]),
-        threshold: 0.3,
-    });
+    useEffect(() => {
+        const fuse = data.length && new Fuse(data, {
+            keys: data.length && Object.keys(data[0]),
+            threshold: 0.3,
+        });
+        setFuse(fuse);
+    }, [data]);
 
     function handleChange(e) {
         const {value} = e.currentTarget;
 
-        const results = value && fuse.search(value)
+        const results = fuse && value && fuse.search(value)
             .map(result => result.item);
+
         onChange(results || data);
     }
 
