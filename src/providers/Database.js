@@ -33,20 +33,22 @@ export function DatabaseProvider({children}) {
                     }
 
                     return subscription.onSnapshot((col) => {
-                        const list = [];
+                        if (auth.user) {
+                            const list = [];
 
-                        col.forEach((doc) => {
-                            const data = doc.data();
-                            data.id = doc.id;
-                            list.push(data);
-                        });
+                            col.forEach((doc) => {
+                                const data = doc.data();
+                                data.id = doc.id;
+                                list.push(data);
+                            });
 
-                        setData(prevState => ({
-                            ...prevState,
-                            [collection]: list,
-                        }));
+                            setData(prevState => ({
+                                ...prevState,
+                                [collection]: list,
+                            }));
 
-                        setLoaded(prevState => prevState + 1);
+                            setLoaded(prevState => prevState + 1);
+                        }
                     });
                 }
 
@@ -57,7 +59,13 @@ export function DatabaseProvider({children}) {
                     get('restaurants'),
                 ]);
             }
+            
         } else if (subscriptions.length) {
+            setData({
+                meals: [],
+                restaurants: [],
+            });
+
             subscriptions.forEach(unsubscribe => unsubscribe());
             setSubscriptions([]);
         }
