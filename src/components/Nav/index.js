@@ -15,19 +15,9 @@ export default function Nav() {
             path: '/meals',
         },
         {
-            icon: 'carrot',
-            name: 'Ingredients',
-            path: '/ingredients',
-        },
-        {
             icon: 'store',
             name: 'Restaurants',
             path: '/restaurants',
-        },
-        {
-            icon: 'store-alt',
-            name: 'Stores',
-            path: '/stores',
         },
     ];
 

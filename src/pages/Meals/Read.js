@@ -9,17 +9,10 @@ export default function Read() {
 
     const doc = db.meals.find(doc => doc.id === params.id);
 
-    function getNutrition(type) {
-        return doc[`additional_${type}`];
-    }
-
-    function getVendor() {
+    function getRestaurant() {
         if (doc.restaurant) {
             const restaurant = db.find('restaurants', doc.restaurant);
             return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
-        } else if (doc.store) {
-            const store = db.find('stores', doc.store);
-            return <Link to={`/stores/${store.id}`}>{store.name}</Link>;
         }
     }
 
@@ -37,28 +30,12 @@ export default function Read() {
             </thead>
             <tbody>
                 <tr>
-                    <th>vendor</th>
-                    <td>{getVendor()}</td>
+                    <th>restaurant</th>
+                    <td>{getRestaurant()}</td>
                 </tr>
                 <tr>
                     <th>price</th>
                     <td>{doc.price}</td>
-                </tr>
-                <tr>
-                    <th>carbs</th>
-                    <td>{getNutrition('carbs')}</td>
-                </tr>
-                <tr>
-                    <th>fat</th>
-                    <td>{getNutrition('fat')}</td>
-                </tr>
-                <tr>
-                    <th>protein</th>
-                    <td>{getNutrition('protein')}</td>
-                </tr>
-                <tr>
-                    <th>calories</th>
-                    <td>{getNutrition('calories')}</td>
                 </tr>
             </tbody>
         </table>

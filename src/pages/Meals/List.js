@@ -12,46 +12,19 @@ export default function List() {
             name: 'name',
         },
         {
-            name: 'vendor',
+            name: 'restaurant',
             render: renderVendor,
         },
         {
             name: 'price',
             align: 'right',
         },
-        {
-            name: 'carbs',
-            align: 'right',
-            render: renderNutrition,
-        },
-        {
-            name: 'fat',
-            align: 'right',
-            render: renderNutrition,
-        },
-        {
-            name: 'protein',
-            align: 'right',
-            render: renderNutrition,
-        },
-        {
-            name: 'calories',
-            align: 'right',
-            render: renderNutrition,
-        },
     ];
-
-    function renderNutrition(value, row, column) {
-        return row[`additional_${column.name}`];
-    }
 
     function renderVendor(value, row) {
         if (row.restaurant) {
             const restaurant = db.find('restaurants', row.restaurant);
             return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
-        } else if (row.store) {
-            const store = db.find('stores', row.store);
-            return <Link to={`/stores/${store.id}`}>{store.name}</Link>;
         }
     }
 
