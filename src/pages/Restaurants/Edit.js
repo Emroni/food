@@ -1,17 +1,53 @@
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Form, TextField } from '../../components';
+import { Button, Divider, Form, TextField } from '../../components';
 
 export default function Edit() {
 
     const db = useDatabase();
+    const history = useHistory();
     const params = useParams();
 
-    const doc = params.id && db.restaurants.find(doc => doc.id === params.id);
+    const initialValues = (params.id && db.restaurants.find(doc => doc.id === params.id)) || {
+        name: '',
+        website: '',
+    };
 
-    return <Form collection="restaurants" doc={doc}>
-        <TextField name="name"/>
-        <TextField name="website" type="url"/>
+    function handleDelete() {
+        if (window.confirm('Are you sure you want to delete this restaurant?')) {
+            db.remove('restaurants', params.id);
+            history.push('/restaurants');
+        }
+    }
+
+    return <Form collection="restaurants" initialValues={initialValues}>
+        <table>
+            <thead>
+                <tr>
+                    <th colSpan={2}>{params.id ? initialValues.name : 'Add'}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <td>
+                        <TextField name="name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Website</th>
+                    <td>
+                        <TextField name="website" type="url"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <Divider/>
+        <div className="flex justify-between flex-row-reverse">
+            <Button className="text-green-500" icon={params.id ? 'check' : 'plus'} type="submit"/>
+            {params.id && (
+                <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
+        </div>
     </Form>;
 
 }

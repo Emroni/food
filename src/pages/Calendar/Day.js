@@ -22,7 +22,7 @@ export default function Day({
         meals,
     ]);
 
-    return <Form className="group mb-4 md:flex" collection="calendar" doc={data}>
+    return <Form className="group mb-4 md:flex" collection="calendar" initialValues={data}>
         <div className="bg-gray-500 px-2 py-1 text-white md:w-28 lg:w-36 group-hover:bg-gray-600">
             <div className="flex justify-between">
                 <span className="font-bold">{date && date.format('ddd')}</span>
