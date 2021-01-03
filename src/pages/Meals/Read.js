@@ -9,13 +9,6 @@ export default function Read() {
 
     const doc = db.meals.find(doc => doc.id === params.id);
 
-    function getRestaurant() {
-        if (doc.restaurant) {
-            const restaurant = db.find('restaurants', doc.restaurant);
-            return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
-        }
-    }
-
     return <>
         <Protected role="admin">
             <div className="flex justify-end mb-2">
@@ -31,7 +24,9 @@ export default function Read() {
             <tbody>
                 <tr>
                     <th>restaurant</th>
-                    <td>{getRestaurant()}</td>
+                    <td>
+                        <Link restaurant={doc.restaurant}/>
+                    </td>
                 </tr>
                 <tr>
                     <th>price</th>

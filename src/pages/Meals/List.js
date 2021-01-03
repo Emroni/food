@@ -13,20 +13,14 @@ export default function List() {
         },
         {
             name: 'restaurant',
-            render: renderVendor,
+            render: (value, row) =>
+                <Link restaurant={row.restaurant}/>,
         },
         {
             name: 'price',
             align: 'right',
         },
     ];
-
-    function renderVendor(value, row) {
-        if (row.restaurant) {
-            const restaurant = db.find('restaurants', row.restaurant);
-            return <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>;
-        }
-    }
 
     useEffect(() => {
         setRows(db.meals);
