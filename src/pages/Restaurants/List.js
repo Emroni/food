@@ -24,7 +24,7 @@ export default function List() {
     return <>
         <div className="flex justify-between mb-2">
             <Search data={db.restaurants} onChange={setRows}/>
-            <Protected role="admin">
+            <Protected>
                 <Button className="ml-2" icon="plus" to="/restaurants/create"/>
             </Protected>
         </div>
