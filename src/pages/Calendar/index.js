@@ -1,25 +1,18 @@
 import { useEffect, useState } from 'react';
 import { getStartOfWeek } from '../../helpers';
+import Day from './Day';
 
 export default function Calendar() {
 
-    const [days, setDays] = useState([]);
+    const [dates, setDates] = useState([]);
 
     useEffect(() => {
-        const days = [];
         const start = getStartOfWeek();
-        for (let i = 0; i < 7; i++) {
-            const date = start.clone()
-                .add(i, 'day');
-
-            days.push({
-                breakfast: '',
-                date,
-                dinner: '',
-                lunch: '',
-            });
-        }
-        setDays(days);
+        const dates = new Array(7)
+            .fill(0)
+            .map((item, index) => start.clone()
+                .add(index, 'day'));
+        setDates(dates);
     }, []);
 
     return <table className="table-fixed">
@@ -32,13 +25,11 @@ export default function Calendar() {
             </tr>
         </thead>
         <tbody>
-            {days.map((day, index) =>
+            {dates.map((date, index) =>
                 <tr key={index}>
-                    <th>{day.date.format('ddd')}</th>
-                    <th className="text-gray-500 text-right">{day.date.format('DD-MM')}</th>
-                    <td className="border-l border-white">{day.breakfast}</td>
-                    <td className="border-l border-white">{day.breakfast}</td>
-                    <td className="border-l border-white">{day.breakfast}</td>
+                    <th>{date.format('ddd')}</th>
+                    <th className="text-gray-500 text-right">{date.format('DD-MM')}</th>
+                    <Day date={date}/>
                 </tr>)}
         </tbody>
     </table>;
