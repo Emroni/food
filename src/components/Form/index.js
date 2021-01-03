@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form as FormikForm, Formik } from 'formik';
 import { useHistory, useParams } from 'react-router-dom';
-import { useDatabase } from '../../providers';
+import { useAuth, useDatabase } from '../../providers';
 import { Button, Divider } from '../';
 import clsx from 'clsx';
 
@@ -12,6 +12,7 @@ export default function Form({
                              }) {
 
     const [loading, setLoading] = useState(false);
+    const auth = useAuth();
     const db = useDatabase();
     const history = useHistory();
     const params = useParams();
@@ -39,11 +40,17 @@ export default function Form({
     function handleSubmit(values) {
         setLoading(true);
 
+        const data = {
+            ...values,
+            user_uid: auth.user.uid,
+        };
+        delete data.id;
+
         let promise;
         if (doc) {
-            promise = db.update(collection, params.id, values);
+            promise = db.update(collection, params.id, data);
         } else {
-            promise = db.add(collection, values);
+            promise = db.add(collection, data);
         }
 
         promise.then(doc => {

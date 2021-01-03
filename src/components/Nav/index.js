@@ -1,12 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../providers';
 import { Icon } from '../';
 import Account from './Account';
-import Login from './Login';
 
 export default function Nav() {
-
-    const auth = useAuth();
 
     const nav = [
         {
@@ -15,19 +11,9 @@ export default function Nav() {
             path: '/meals',
         },
         {
-            icon: 'carrot',
-            name: 'Ingredients',
-            path: '/ingredients',
-        },
-        {
             icon: 'store',
             name: 'Restaurants',
             path: '/restaurants',
-        },
-        {
-            icon: 'store-alt',
-            name: 'Stores',
-            path: '/stores',
         },
     ];
 
@@ -41,9 +27,7 @@ export default function Nav() {
                     </NavLink>)}
             </div>
             <div className="text-xl">
-                {auth.user ?
-                    <Account/> :
-                    <Login/>}
+                <Account/>
             </div>
         </div>
     </nav>;
