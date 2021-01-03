@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import Meal from './Meal';
 
-export default function Meals() {
+export default function Meals({data}) {
 
     const {
         dirty,
@@ -21,9 +21,9 @@ export default function Meals() {
     ])
 
     return <div className="flex-1 md:flex">
-        <Meal time="breakfast"/>
-        <Meal time="lunch"/>
-        <Meal time="dinner"/>
+        <Meal data={data.breakfast} time="breakfast"/>
+        <Meal data={data.lunch} time="lunch"/>
+        <Meal data={data.dinner} time="dinner"/>
     </div>;
 
 }
