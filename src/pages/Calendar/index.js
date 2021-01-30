@@ -26,9 +26,9 @@ export default function Calendar() {
                 return {
                     data,
                     meals: {
-                        breakfast: data.breakfast_uid && db.find('meals', data.breakfast_uid),
-                        dinner: data.dinner_uid && db.find('meals', data.dinner_uid),
-                        lunch: data.lunch_uid && db.find('meals', data.lunch_uid),
+                        breakfast: data.breakfast_meal_uid && db.find('meals', data.breakfast_meal_uid),
+                        dinner: data.dinner_meal_uid && db.find('meals', data.dinner_meal_uid),
+                        lunch: data.lunch_meal_uid && db.find('meals', data.lunch_meal_uid),
                     },
                 };
             });
