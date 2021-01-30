@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Form } from '../../components';
 import Meals from './Meals';
 import { getDate } from '../../helpers';
+import clsx from 'clsx';
 
 export default function Day({
                                 data,
@@ -22,7 +23,11 @@ export default function Day({
         meals,
     ]);
 
-    return <Form className="group mb-4 md:flex" collection="calendar" initialValues={data}>
+    const formClass = clsx('group mb-4 md:flex', {
+        'bg-gray-300 -m-1 p-1': date && date.isToday(),
+    });
+
+    return <Form className={formClass} collection="calendar" initialValues={data}>
         <div className="bg-gray-500 px-2 py-1 text-white md:w-28 lg:w-36 group-hover:bg-gray-600">
             <div className="flex justify-between">
                 <span className="font-bold">{date && date.format('ddd')}</span>
