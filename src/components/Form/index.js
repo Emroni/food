@@ -17,25 +17,26 @@ export default function Form({
     const history = useHistory();
 
     function handleSubmit(values) {
-        setLoading(true);
+        if (auth.user) {
+            setLoading(true);
 
-        const data = {
-            ...values,
-            user_uid: auth.user.uid,
-        };
-        delete data.id;
+            const data = {
+                ...values,
+            };
+            delete data.id;
 
-        let promise;
-        if (initialValues && initialValues.id) {
-            promise = db.update(collection, initialValues.id, data);
-        } else {
-            promise = db.add(collection, data);
+            let promise;
+            if (initialValues && initialValues.id) {
+                promise = db.update(collection, initialValues.id, data);
+            } else {
+                promise = db.add(collection, data);
+            }
+
+            promise.then(() => {
+                setLoading(false);
+                history.push(`/${collection}`);
+            });
         }
-
-        promise.then(() => {
-            setLoading(false);
-            history.push(`/${collection}`);
-        });
     }
 
     const formClasses = clsx({

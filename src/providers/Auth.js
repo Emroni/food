@@ -9,7 +9,6 @@ export function AuthProvider({children}) {
 
     const [authenticating, setAuthenticating] = useState(false);
     const [error, setError] = useState(null);
-    const [ready, setReady] = useState(false);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -28,10 +27,8 @@ export function AuthProvider({children}) {
                             uid: user.uid,
                         });
                         setAuthenticating(false);
-                        setReady(true);
                     });
             } else {
-                setReady(true);
                 setUser(null);
             }
         });
@@ -59,7 +56,6 @@ export function AuthProvider({children}) {
         error,
         login,
         logout,
-        ready,
         user,
     };
 

@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
-import { useAuth } from './Auth';
 
 export const DatabaseContext = createContext(null);
 
@@ -9,75 +8,38 @@ export const useDatabase = () => useContext(DatabaseContext);
 export function DatabaseProvider({children}) {
 
     const [data, setData] = useState({
-        calendar: [],
         meals: [],
         restaurants: [],
     });
     const [loaded, setLoaded] = useState(0);
-    const [subscriptions, setSubscriptions] = useState([]);
-    const auth = useAuth();
 
     useEffect(() => {
-        if (auth.user) {
-            if (!subscriptions.length) {
-                const db = firebase.firestore();
+        const db = firebase.firestore();
 
-                const get = (collection, orderBy, where) => {
-                    let subscription = db.collection(collection);
+        const get = (collection, orderBy) => {
+            return db.collection(collection)
+                .orderBy(orderBy)
+                .onSnapshot((col) => {
+                    const list = [];
 
-                    if (orderBy) {
-                        subscription = subscription.orderBy(orderBy);
-                    }
-
-                    if (where) {
-                        Object.entries(where)
-                            .forEach(([key, value]) => {
-                                subscription = subscription.where(key, '==', value);
-                            });
-                    }
-
-                    return subscription.onSnapshot((col) => {
-                        if (auth.user) {
-                            const list = [];
-
-                            col.forEach((doc) => {
-                                const data = doc.data();
-                                data.id = doc.id;
-                                list.push(data);
-                            });
-
-                            setData(prevState => ({
-                                ...prevState,
-                                [collection]: list,
-                            }));
-
-                            setLoaded(prevState => prevState + 1);
-                        }
+                    col.forEach((doc) => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        list.push(data);
                     });
-                }
 
-                setSubscriptions([
-                    get('calendar', 'date', {
-                        user_uid: auth.user.uid,
-                    }),
-                    get('meals', 'name', {
-                        user_uid: auth.user.uid,
-                    }),
-                    get('restaurants'),
-                ]);
-            }
-            
-        } else if (subscriptions.length) {
-            setData({
-                calendar: [],
-                meals: [],
-                restaurants: [],
-            });
+                    setData(prevState => ({
+                        ...prevState,
+                        [collection]: list,
+                    }));
 
-            subscriptions.forEach(unsubscribe => unsubscribe());
-            setSubscriptions([]);
+                    setLoaded(prevState => prevState + 1);
+                });
         }
-    }, [auth.user, subscriptions]);
+
+        get('meals', 'name');
+        get('restaurants', 'name');
+    }, []);
 
     function add(collection, data) {
         const db = firebase.firestore();

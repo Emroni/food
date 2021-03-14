@@ -4,6 +4,6 @@ export default function Protected({children}) {
 
     const auth = useAuth();
 
-    return auth.user && (auth.user.role === 'admin') && children;
+    return auth.user && children;
 
 }
