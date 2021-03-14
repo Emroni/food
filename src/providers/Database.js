@@ -8,7 +8,6 @@ export const useDatabase = () => useContext(DatabaseContext);
 export function DatabaseProvider({children}) {
 
     const [data, setData] = useState({
-        calendar: [],
         meals: [],
         restaurants: [],
     });
@@ -18,31 +17,26 @@ export function DatabaseProvider({children}) {
         const db = firebase.firestore();
 
         const get = (collection, orderBy) => {
-            let subscription = db.collection(collection);
+            return db.collection(collection)
+                .orderBy(orderBy)
+                .onSnapshot((col) => {
+                    const list = [];
 
-            if (orderBy) {
-                subscription = subscription.orderBy(orderBy);
-            }
+                    col.forEach((doc) => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        list.push(data);
+                    });
 
-            return subscription.onSnapshot((col) => {
-                const list = [];
+                    setData(prevState => ({
+                        ...prevState,
+                        [collection]: list,
+                    }));
 
-                col.forEach((doc) => {
-                    const data = doc.data();
-                    data.id = doc.id;
-                    list.push(data);
+                    setLoaded(prevState => prevState + 1);
                 });
-
-                setData(prevState => ({
-                    ...prevState,
-                    [collection]: list,
-                }));
-
-                setLoaded(prevState => prevState + 1);
-            });
         }
 
-        get('calendar', 'date');
         get('meals', 'name');
         get('restaurants', 'name');
     }, []);

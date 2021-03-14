@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt, faCarrot, faCheck, faChevronLeft, faChevronRight, faCircleNotch, faEdit, faExternalLinkAlt, faImage, faPlus, faSearch, faStore, faStoreAlt, faTimes, faUserCircle, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faCarrot, faCheck, faChevronLeft, faChevronRight, faCircleNotch, faEdit, faExternalLinkAlt, faImage, faPlus, faSearch, faStore, faStoreAlt, faTimes, faUserCircle, faUtensils } from '@fortawesome/free-solid-svg-icons';
 
 export const icons = {
-    'calendar-alt': faCalendarAlt,
     'carrot': faCarrot,
     'check': faCheck,
     'chevron-left': faChevronLeft,
