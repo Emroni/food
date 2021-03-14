@@ -1,6 +1,6 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { useDatabase } from '../../providers';
-import { Button, Divider, Form, TextField } from '../../components';
+import { Button, Divider, Form, Protected, TextField } from '../../components';
 
 export default function Edit() {
 
@@ -42,12 +42,14 @@ export default function Edit() {
                 </tr>
             </tbody>
         </table>
-        <Divider/>
-        <div className="flex justify-between flex-row-reverse">
-            <Button className="text-green-500" icon={params.id ? 'check' : 'plus'} type="submit"/>
-            {params.id && (
-                <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
-        </div>
+        <Protected>
+            <Divider/>
+            <div className="flex justify-between flex-row-reverse">
+                <Button className="text-green-500" icon={params.id ? 'check' : 'plus'} type="submit"/>
+                {params.id && (
+                    <Button className="text-red-500" icon="times" type="button" onClick={handleDelete}/>)}
+            </div>
+        </Protected>
     </Form>;
 
 }
